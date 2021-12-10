@@ -1,36 +1,32 @@
 ---
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  name: nas
-  namespace: networking
+  name: google-external  
 spec:
   type: ExternalName
   ports:
-    - name: web
-      port: 5001
-      targetPort: 5001
-  externalName: 192.168.1.20
+  - name: https    
+    port: 443    
+    targetPort: 80
+  externalName: google.com
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: extensions/v1beta1
+kind: Ingress
 metadata:
-  name: nas
-  namespace: networking
+  name: google-ingress  
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-production"
-    hajimari.io/appName: "nas"
-    hajimari.io/enable: "true"
-    hajimari.io/icon: "nas"
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-spec:
-  entryPoints:
-    - "websecure"
-  routes:
-  - kind: Rule
-    match: Host(`nas.${SECRET_DOMAIN}`)
-    services:
-    - kind: Service
-      name: nas
-      port: 5001
-      scheme: https
+    kubernetes.io/ingress.class: traefik 
+    traefik.frontend.passHostHeader: "false"
+    traefik.ingress.kubernetes.io/redirect-regex: ^https://nas.${SECRET_DOMAIN}/(.*)
+    traefik.ingress.kubernetes.io/redirect-replacement: https://nas.${SECRET_DOMAIN}/$1
+    traefik.ingress.kubernetes.io/redirect-permanent: "false"
+spec:    
+    rules:
+    - host: nas.${SECRET_DOMAIN}
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: google-external
+            servicePort: https
