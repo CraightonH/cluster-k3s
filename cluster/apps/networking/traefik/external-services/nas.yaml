@@ -8,6 +8,7 @@ spec:
   type: ExternalName
   ports:
     - name: web
+      port: 443
       targetPort: 5001
   externalName: 192.168.1.20
 ---
