@@ -9,6 +9,8 @@
     - name: Pausing for 5 seconds...
       pause:
         seconds: 5
+  vars:
+    k3s_release_version: v1.21.5+k3s1
   tasks:
     - name: Check if cluster is installed
       ansible.builtin.stat:
