@@ -11,6 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: rancher-charts
+      version: 2.6.2
   interval: 15m0s
   values:
     ingress:
