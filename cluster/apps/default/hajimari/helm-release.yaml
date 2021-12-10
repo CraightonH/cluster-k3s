@@ -26,6 +26,7 @@ spec:
         matchNames:
           - default
           - networking
+          - cattle-system
       name: "Craighton"
       groups:
         - name: Communicate
