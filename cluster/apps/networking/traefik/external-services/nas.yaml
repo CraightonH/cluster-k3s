@@ -31,4 +31,4 @@ spec:
     services:
     - kind: Service
       name: nas
-      port: 443
+      port: 5001
