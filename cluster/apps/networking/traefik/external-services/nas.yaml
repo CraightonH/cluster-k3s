@@ -34,6 +34,8 @@ spec:
       port: web
       scheme: https
   tls:
-    - hosts:
-        - "nas.${SECRET_DOMAIN}"
-      secretName: "nas-tls"
+    secretName: "nas-tls"
+    domains:
+      - main: ${SECRET_DOMAIN}
+        sans:
+          - nas.${SECRET_DOMAIN}
