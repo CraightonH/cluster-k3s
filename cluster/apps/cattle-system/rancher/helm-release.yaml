@@ -8,10 +8,11 @@ spec:
   chart:
     spec:
       chart: rancher
+      version: 2.6.2
       sourceRef:
         kind: HelmRepository
         name: rancher-charts
-      version: 2.6.2
+        namespace: flux-system
   interval: 15m0s
   values:
     ingress:
