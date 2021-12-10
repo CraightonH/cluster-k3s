@@ -1,4 +1,18 @@
 ---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: nas-tls
+  namespace: networking
+spec:
+  commonName: nas.${SECRET_DOMAIN}
+  secretName: nas-tls
+  dnsNames:
+    - nas.${SECRET_DOMAIN}
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -32,3 +46,5 @@ spec:
     - kind: Service
       name: nas
       port: 5001
+  tls:
+    nas-tls
