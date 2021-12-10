@@ -11,9 +11,6 @@ spec:
       port: 443
       targetPort: 5001
   externalName: 192.168.1.20
-  selector:
-    app.kubernetes.io/instance: traefik
-    app.kubernetes.io/name: traefik
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
