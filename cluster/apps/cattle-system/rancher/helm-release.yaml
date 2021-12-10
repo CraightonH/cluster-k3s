@@ -16,4 +16,6 @@ spec:
   interval: 15m0s
   values:
     ingress:
-      enabled: false
+      tls:
+        source: letsEncrypt
+    hostname: rancher.${SECRET_DOMAIN}
