@@ -45,5 +45,6 @@ spec:
     - kind: Service
       name: nas
       port: web
+      scheme: https
   tls:
     nas-tls
