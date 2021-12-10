@@ -18,13 +18,19 @@ metadata:
   name: google-ingress 
   namespace: networking 
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
     kubernetes.io/ingress.class: traefik 
     traefik.frontend.passHostHeader: "false"
     traefik.ingress.kubernetes.io/redirect-regex: ^https://nas.${SECRET_DOMAIN}/(.*)
     traefik.ingress.kubernetes.io/redirect-replacement: https://nas.${SECRET_DOMAIN}/$1
     traefik.ingress.kubernetes.io/redirect-permanent: "false"
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
 spec:    
-    rules:
+  tls:
+    - hosts:
+        - "nas.${SECRET_DOMAIN}"
+      secretName: "google-ingress-tls"
+  rules:
     - host: nas.${SECRET_DOMAIN}
       http:
         paths:
