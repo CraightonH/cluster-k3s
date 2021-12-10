@@ -32,7 +32,7 @@ spec:
     services:
     - kind: Service
       name: nas
-      port: web
+      port: 5001
       scheme: https
   tls:
     secretName: "nas-tls"
