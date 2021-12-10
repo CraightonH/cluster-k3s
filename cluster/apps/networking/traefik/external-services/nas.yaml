@@ -18,7 +18,6 @@ metadata:
   name: nas
   namespace: networking
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-production"
     hajimari.io/appName: "nas"
     hajimari.io/enable: "true"
     hajimari.io/icon: "nas"
@@ -32,9 +31,4 @@ spec:
     services:
     - kind: Service
       name: nas
-      namespace: networking
-      passHostHeader: true
-      port: 5001
-      scheme: https
-  tls:
-    secretName: nas-tls
+      port: 443
