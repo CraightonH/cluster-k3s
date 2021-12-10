@@ -3,6 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: google-external  
+  namespace: networking
 spec:
   type: ExternalName
   ports:
@@ -14,7 +15,8 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: google-ingress  
+  name: google-ingress 
+  namespace: networking 
   annotations:
     kubernetes.io/ingress.class: traefik 
     traefik.frontend.passHostHeader: "false"
