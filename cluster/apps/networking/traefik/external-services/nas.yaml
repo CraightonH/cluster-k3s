@@ -34,5 +34,3 @@ spec:
       name: nas
       port: 5001
       scheme: https
-  tls:
-    certResolver: letsencrypt-production
