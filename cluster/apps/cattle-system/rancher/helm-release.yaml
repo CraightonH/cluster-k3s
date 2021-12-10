@@ -15,9 +15,3 @@ spec:
   values:
     ingress:
       enabled: false
-    service:
-      enabled: true
-      type: LoadBalancer
-      spec:
-        loadBalancerIP: "${METALLB_TRAEFIK_ADDR}"
-        externalTrafficPolicy: Local
