@@ -1,18 +1,4 @@
 ---
-apiVersion: cert-manager.io/v1alpha2
-kind: Certificate
-metadata:
-  name: nas-tls
-  namespace: networking
-spec:
-  commonName: nas.${SECRET_DOMAIN}
-  secretName: nas-tls
-  dnsNames:
-    - nas.${SECRET_DOMAIN}
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -31,6 +17,7 @@ metadata:
   name: nas
   namespace: networking
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
     hajimari.io/appName: "nas"
     hajimari.io/enable: "true"
     hajimari.io/icon: "nas"
