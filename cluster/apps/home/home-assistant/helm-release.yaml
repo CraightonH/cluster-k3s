@@ -1,0 +1,90 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: home-assistant
+      version: 11.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  dependsOn:
+    - name: home-assistant-config-pvc
+      namespace: home
+  values:
+    image:
+      repository: ghcr.io/home-assistant/home-assistant
+      tag: 2021.11.5
+    env: 
+      TZ: "America/Denver"
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
+        hosts:
+          - host: "ha.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "ha.${SECRET_DOMAIN}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: "home-assistant-config-pvc"
+      media:
+        enabled: true
+        mountPath: /mnt/media/nvr
+        existingClaim: "nvr-media-pvc"
+
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: codercom/code-server
+          tag: 3.11.1
+        env:
+          TZ: "America/Denver"
+        workingDir: "/config"
+        args:
+          - --user-data-dir
+          - "/config/.vscode"
+          - --auth
+          - "none"
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: "traefik"
+            external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+            external-dns/is-public: "true"
+          hosts:
+          - host: haconfig.${SECRET_DOMAIN}
+            paths:
+            - path: /
+              pathType: Prefix
+          tls:
+          - hosts:
+            - haconfig.${SECRET_DOMAIN}
+        volumeMounts:
+        - name: config
+          mountPath: /config
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+      limits:
+        memory: 4000Mi    
