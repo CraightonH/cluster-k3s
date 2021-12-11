@@ -76,10 +76,10 @@ spec:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hosts:
-          - host: haconfig.${SECRET_DOMAIN}
-            paths:
-            - path: /
-              pathType: Prefix
+            - host: haconfig.${SECRET_DOMAIN}
+              paths:
+              - path: /
+                pathType: Prefix
           tls:
             - hosts:
                 - "haconfig.${SECRET_DOMAIN}"
