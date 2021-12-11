@@ -67,10 +67,12 @@ spec:
           - "none"
         ingress:
           enabled: true
+          ingressClassName: "traefik"
           annotations:
-            kubernetes.io/ingress.class: "traefik"
             external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
             external-dns/is-public: "true"
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hosts:
           - host: haconfig.${SECRET_DOMAIN}
             paths:
@@ -79,6 +81,7 @@ spec:
           tls:
           - hosts:
             - haconfig.${SECRET_DOMAIN}
+            secretName: haconfig-tls
         volumeMounts:
         - name: config
           mountPath: /config
