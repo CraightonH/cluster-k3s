@@ -79,9 +79,9 @@ spec:
             - path: /
               pathType: Prefix
           tls:
-          - hosts:
-            - haconfig.${SECRET_DOMAIN}
-            secretName: haconfig-tls
+            - hosts:
+                - "haconfig.${SECRET_DOMAIN}"
+              secretName: "haconfig-tls"
         volumeMounts:
         - name: config
           mountPath: /config
