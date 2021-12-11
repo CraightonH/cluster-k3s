@@ -42,6 +42,7 @@ spec:
         tls:
           - hosts:
               - "home.${SECRET_DOMAIN}"
+              - "haconfig.${SECRET_DOMAIN}"
             secretName: "home-assistant-tls"
     persistence:
       config:
@@ -83,7 +84,7 @@ spec:
           tls:
             - hosts:
                 - "haconfig.${SECRET_DOMAIN}"
-              secretName: "haconfig-tls"
+              secretName: "home-assistant-tls"
         volumeMounts:
         - name: config
           mountPath: /config
