@@ -22,6 +22,8 @@ metadata:
     kubernetes.io/ingress.class: traefik 
     traefik.frontend.passHostHeader: "false"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    hajimari.io/enable: "true"
+    hajimari.io/icon: "nas"
 spec:    
   tls:
     - hosts:
