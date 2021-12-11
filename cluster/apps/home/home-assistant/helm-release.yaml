@@ -27,7 +27,6 @@ spec:
     ingress:
       main:
         enabled: true
-        # ingressClassName: "traefik"
         annotations:
           kubernetes.io/ingress.class: traefik 
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
@@ -42,7 +41,6 @@ spec:
         tls:
           - hosts:
               - "home.${SECRET_DOMAIN}"
-              - "haconfig.${SECRET_DOMAIN}"
             secretName: "home-assistant-tls"
     persistence:
       config:
@@ -69,7 +67,6 @@ spec:
           - "none"
         ingress:
           enabled: true
-          ingressClassName: "traefik"
           annotations:
             kubernetes.io/ingress.class: traefik 
             external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
@@ -84,7 +81,7 @@ spec:
           tls:
             - hosts:
                 - "haconfig.${SECRET_DOMAIN}"
-              secretName: "home-assistant-tls"
+              secretName: "haconfig-tls"
         volumeMounts:
         - name: config
           mountPath: /config
