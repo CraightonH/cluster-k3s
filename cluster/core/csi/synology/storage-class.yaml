@@ -1,0 +1,13 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: synology-iscsi-storage
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: csi.san.synology.com
+parameters:
+  dsm: '192.168.1.20'
+  location: '/volume12'
+  fsType: 'btrfs'
+reclaimPolicy: Retain
+allowVolumeExpansion: true
