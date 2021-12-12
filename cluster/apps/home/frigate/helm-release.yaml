@@ -24,6 +24,8 @@ spec:
     replicaCount: 0
     strategy:
       type: Recreate
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
     
     env: 
       TZ: "America/Denver"
@@ -121,7 +123,7 @@ spec:
             retain:
               default: 3
       database:
-        path: /data/frigate.db
+        path: /media/frigate.db
       detectors:
         cpu1:
           type: cpu
