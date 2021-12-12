@@ -24,6 +24,8 @@ spec:
     replicaCount: 0
     strategy:
       type: Recreate
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
     
     env: 
       TZ: "America/Denver"
