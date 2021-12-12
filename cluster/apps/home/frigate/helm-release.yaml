@@ -1,0 +1,137 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: frigate
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: frigate
+      version: 6.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: blakeblackshear/frigate
+      tag: 0.9.4-amd64
+      pullPolicy: IfNotPresent
+    replicas: 1
+    strategy:
+      type: Recreate
+    
+    env: 
+      TZ: "America/Denver"
+
+    service:
+      main:
+        type: NodePort
+        ports:
+          http:
+            enabled: true
+            nodePort: 31934
+          rtmp:
+            enabled: true
+            nodePort: 31935
+
+    persistence:
+      data:
+        enabled: true
+        mountPath: /data
+        existingClaim: frigate-config-pvc
+      media:
+        enabled: true
+        mountPath: /media
+        existingClaim: nvr-media-pvc
+      # -- Configure a hostPathMount to mount a USB device in the container.
+      # @default -- See values.yaml
+      usb:
+        enabled: false
+        type: hostPath
+        hostPath: /dev/bus/usb
+      # -- Configure a temporary cache. See [docs](https://blakeblackshear.github.io/frigate/) for more details..
+      # @default -- See values.yaml
+      cache:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 1Gi
+        mountPath: /dev/shm
+    
+    config: |
+      mqtt:
+        host: mosquitto
+        topic_prefix: frigate
+      objects:
+        track:
+          - person
+      ffmpeg:
+        output_args:
+          record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c copy -c:a aac
+      cameras:
+        garage:
+          ffmpeg:
+            inputs:
+              - path: ${camera_garage}
+                roles:
+                  - detect
+                  - record
+          detect:
+            height: 1080
+            width: 1920
+          motion:
+            mask:
+              - 1373,1080,1371,1005,1870,1005,1870,1080
+          record:
+            enabled: True
+            retain_days: 5
+          snapshots:
+            enabled: True
+            timestamp: True
+            bounding_box: True
+            height: 450
+            retain:
+              default: 3
+        declanroom:
+          ffmpeg:
+            inputs:
+              - path: ${camera_declanroom}
+                roles:
+                  - detect
+                  - record
+          detect:
+            height: 1080
+            width: 1920
+          motion:
+            mask:
+              - 1373,1080,1371,1005,1870,1005,1870,1080
+          record:
+            enabled: True
+            retain_days: 5
+          snapshots:
+            enabled: True
+            timestamp: False
+            bounding_box: True
+            height: 450
+            retain:
+              default: 3
+      database:
+        path: /data/frigate.db
+      detectors:
+        cpu1:
+          type: cpu
+
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/arch
+              operator: In
+              values:
+              - amd64
