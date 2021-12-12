@@ -41,7 +41,7 @@ spec:
 
     persistence:
       data:
-        enabled: true
+        enabled: false
         mountPath: /data
         existingClaim: frigate-config-pvc
       media:
