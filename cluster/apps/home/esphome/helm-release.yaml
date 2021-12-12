@@ -20,7 +20,7 @@ spec:
     image:
       tag: 2021.8.0
       pullPolicy: IfNotPresent
-    replicas: 0
+    replicaCount: 0
     dnsPolicy: ClusterFirstWithHostNet
     hostNetwork: true
     persistence:
