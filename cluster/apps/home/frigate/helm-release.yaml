@@ -121,7 +121,7 @@ spec:
             retain:
               default: 3
       database:
-        path: /data/frigate.db
+        path: /media/frigate.db
       detectors:
         cpu1:
           type: cpu
