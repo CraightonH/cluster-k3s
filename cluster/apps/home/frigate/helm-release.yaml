@@ -77,7 +77,7 @@ spec:
         garage:
           ffmpeg:
             inputs:
-              - path: ${camera_garage}
+              - path: ${SECRET_CAMERA_CONNECTION_GARAGE}
                 roles:
                   - detect
                   - record
@@ -100,7 +100,7 @@ spec:
         declanroom:
           ffmpeg:
             inputs:
-              - path: ${camera_declanroom}
+              - path: ${SECRET_CAMERA_CONNECTION_DECLANROOM}
                 roles:
                   - detect
                   - record

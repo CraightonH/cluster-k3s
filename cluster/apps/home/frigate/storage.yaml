@@ -13,7 +13,7 @@ spec:
   storageClassName: nfs
   nfs:
     path: /volume10/nvr
-    server: 192.168.1.20
+    server: ${NAS_ADDRESS}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -43,7 +43,7 @@ spec:
   storageClassName: nfs
   nfs:
     path: /volume10/nvr
-    server: 192.168.1.20
+    server: ${NAS_ADDRESS}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
