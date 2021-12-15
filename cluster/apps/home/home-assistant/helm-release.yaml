@@ -33,6 +33,9 @@ spec:
           external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/appName: "HA"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "home-assistant"
         hosts:
           - host: "home.${SECRET_DOMAIN}"
             paths:
