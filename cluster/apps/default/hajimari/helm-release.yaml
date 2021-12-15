@@ -28,6 +28,7 @@ spec:
           - default
           - networking
           - cattle-system
+          - media
       name: "Craighton"
       groups:
         - name: Communicate
