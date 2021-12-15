@@ -58,10 +58,10 @@ spec:
     config: |
       upstream:
         default:
-          - ${LOCAL_UPSTREAM_DNS_1}
-      conditional:
-        mapping:
-          ${SECRET_DOMAIN}: tcp+udp:${LOCAL_UPSTREAM_DNS_1}
+          - ${DEFAULT_GATEWAY}
+      #conditional:
+      #  mapping:
+      #    ${SECRET_DOMAIN}: tcp+udp:${DEFAULT_GATEWAY}
       blocking:
         blackLists:
           ads:
@@ -88,7 +88,7 @@ spec:
           default:
             - ads
       clientLookup:
-        upstream: tcp+udp:${LOCAL_UPSTREAM_DNS_1}
+        upstream: tcp+udp:${DEFAULT_GATEWAY}
       prometheus:
         enable: false
         path: /metrics
