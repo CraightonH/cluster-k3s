@@ -59,9 +59,16 @@ spec:
       upstream:
         default:
           - ${LOCAL_UPSTREAM_DNS_1}
-      #conditional:
-      #  mapping:
-      #    ${SECRET_DOMAIN}: tcp+udp:${LOCAL_UPSTREAM_DNS_1}
+          - ${DEFAULT_GATEWAY}
+      customDNS:
+        mapping:
+          ${SECRET_DOMAIN}: ${METALLB_TRAEFIK_ADDR}
+      conditional:
+        mapping:
+          # local network DNS
+          hancock.local: tcp+udp:${DEFAULT_GATEWAY}
+          # local network reverse DNS
+          1.168.192.in-addr.arpa: tcp+udp:${DEFAULT_GATEWAY}
       blocking:
         blackLists:
           ads:
@@ -88,14 +95,14 @@ spec:
           default:
             - ads
       clientLookup:
-        upstream: tcp+udp:${LOCAL_UPSTREAM_DNS_1}
+        upstream: tcp+udp:${DEFAULT_GATEWAY}
       prometheus:
         enable: false
         path: /metrics
       bootstrapDns: tcp:1.1.1.1
       httpPort: 4000
       logFormat: json
-      logLevel: info
+      logLevel: warn
     persistence:
       whitelists:
         enabled: true
