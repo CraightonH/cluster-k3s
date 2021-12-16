@@ -63,12 +63,6 @@ spec:
       customDNS:
         mapping:
           ${SECRET_DOMAIN}: ${METALLB_TRAEFIK_ADDR}
-      conditional:
-        mapping:
-          # local network DNS
-          hancock.local: tcp+udp:${DEFAULT_GATEWAY}
-          # local network reverse DNS
-          1.168.192.in-addr.arpa: tcp+udp:${DEFAULT_GATEWAY}
       blocking:
         blackLists:
           ads:
