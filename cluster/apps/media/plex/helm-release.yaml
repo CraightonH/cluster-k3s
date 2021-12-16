@@ -62,21 +62,21 @@ spec:
         enabled: true
         existingClaim: "plex-config-pvc"
 
-    # affinity:
-    #   nodeAffinity:
-    #     requiredDuringSchedulingIgnoredDuringExecution:
-    #       nodeSelectorTerms:
-    #       - matchExpressions:
-    #         - key: kubernetes.io/arch
-    #           operator: In
-    #           values:
-    #           - amd64
-    #     preferredDuringSchedulingIgnoredDuringExecution:
-    #     - weight: 1
-    #       preference:
-    #         matchExpressions:
-    #           - key: kubernetes.io/hostname
-    #             operator: In
-    #             values:
-    #             - k8s-1
-    #             - k8s-2
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/arch
+              operator: In
+              values:
+              - amd64
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - k8s-1
+                - k8s-2
