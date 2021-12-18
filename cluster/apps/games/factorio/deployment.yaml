@@ -31,7 +31,7 @@ spec:
             - name: SAVE_NAME
               value: WithDad2021
             - name: LOAD_LATEST_SAVE
-              value: false
+              value: "false"
       volumes:
         - name: factorio-vol
           persistentVolumeClaim:
