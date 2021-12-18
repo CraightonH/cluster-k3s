@@ -5,10 +5,9 @@ metadata:
   name: factorio-port
   namespace: games
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: factorio
-  type: LoadBalancer
   externalIPs:
     - "${GAME_SERVER_IP}"
   ports:
