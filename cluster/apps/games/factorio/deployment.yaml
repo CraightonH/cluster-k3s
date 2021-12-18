@@ -30,6 +30,8 @@ spec:
           env:
             - name: SAVE_NAME
               value: WithDad2021
+            - name: LOAD_LATEST_SAVE
+              value: false
       volumes:
         - name: factorio-vol
           persistentVolumeClaim:
@@ -43,3 +45,12 @@ spec:
                 operator: In
                 values:
                 - amd64
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - k8s-1
+                - k8s-2
