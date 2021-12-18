@@ -63,6 +63,7 @@ spec:
       customDNS:
         mapping:
           ${SECRET_DOMAIN}: ${METALLB_TRAEFIK_ADDR}
+          games.${SECRET_DOMAIN}: ${GAME_SERVER_IP}
       blocking:
         blackLists:
           ads:
