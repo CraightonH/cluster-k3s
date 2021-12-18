@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: factorio-pvc-1
+  name: factorio-pvc
   namespace: games
 spec:
   storageClassName: nfs
