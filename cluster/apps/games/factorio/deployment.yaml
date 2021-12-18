@@ -27,6 +27,8 @@ spec:
           volumeMounts:
             - mountPath: /factorio
               name: factorio-vol
+          env:
+            - name: SAVE_NAME=WithDad2021
       volumes:
         - name: factorio-vol
           persistentVolumeClaim:
