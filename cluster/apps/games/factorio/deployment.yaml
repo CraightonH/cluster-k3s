@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: factorio
+  labels:
+    category: game
+    app: factorio
+  namespace: games
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: factorio
+  template:
+    metadata:
+      labels:
+        app: factorio
+    spec:
+      containers:
+        - name: factorio
+          image: factoriotools/factorio:1.1.49
+          ports:
+            - containerPort: 34197
+          volumeMounts:
+            - mountPath: /factorio
+              name: factorio-vol
+      volumes:
+        - name: factorio-vol
+          persistentVolumeClaim:
+            claimName: factorio-pvc
