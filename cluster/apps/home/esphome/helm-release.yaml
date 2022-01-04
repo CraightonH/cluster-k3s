@@ -28,11 +28,10 @@ spec:
         enabled: true
         existingClaim: "home-assistant-config-pvc"
         subPath: esphome
-    ingress:
+    service:
       main:
-        enabled: false
-        hosts:
-          - host: esphome.${SECRET_DOMAIN}
-            paths:
-            - path: /
-              pathType: Prefix
+        type: NodePort
+        ports:
+          http:
+            enabled: true
+            nodePort: 31933
