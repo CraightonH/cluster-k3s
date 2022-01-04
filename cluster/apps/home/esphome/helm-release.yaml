@@ -29,16 +29,17 @@ spec:
         existingClaim: "home-assistant-config-pvc"
         subPath: esphome
     ingress:
-      enabled: true
-      annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-      hosts:
-        - host: esphome.${SECRET_DOMAIN}
-          paths:
-          - path: /
-            pathType: Prefix
-      tls:
-        - hosts:
-            - "esphome.${SECRET_DOMAIN}"
-          secretName: "esphome-tls"
+      main:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hosts:
+          - host: esphome.${SECRET_DOMAIN}
+            paths:
+            - path: /
+              pathType: Prefix
+        tls:
+          - hosts:
+              - "esphome.${SECRET_DOMAIN}"
+            secretName: "esphome-tls"
