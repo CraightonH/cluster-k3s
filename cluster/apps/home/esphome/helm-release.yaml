@@ -30,7 +30,7 @@ spec:
         subPath: esphome
     ingress:
       main:
-        enabled: true
+        enabled: false
         hosts:
           - host: esphome.${SECRET_DOMAIN}
             paths:
