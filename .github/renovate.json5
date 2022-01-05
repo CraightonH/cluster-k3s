@@ -101,7 +101,7 @@
     {
       "datasources": ["docker"],
       "versioning": "loose",
-      "automerge": "true",
+      "automerge": true,
       "packageNames": ["plexinc/pms-docker"]
     },
     // auto-updates minor/patch
