@@ -97,12 +97,6 @@
       "matchUpdateTypes": ["patch"],
       "addLabels": ["renovate/helm", "dep/patch"]
     },
-    // auto-merge non-major version updates
-    {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automerge": true,
-      "addLabels": ["auto-merge"]
-    },
     // auto-merge major version updates
     {
       "matchUpdateTypes": ["major"],
@@ -114,5 +108,20 @@
         "eclipse-mosquitto"
       ]
     },    
+    // auto-merge minor version updates
+    {
+      "matchUpdateTypes": ["minor"],
+      "automerge": true,
+      "addLabels": ["auto-merge"],
+      "excludePackageNames": [
+        "ghcr.io/home-assistant/home-assistant"
+      ]
+    },
+    // auto-merge patch and lower version updates
+    {
+      "matchUpdateTypes": ["patch", "pin", "digest"],
+      "automerge": true,
+      "addLabels": ["auto-merge"]
+    }
   ]
 }
