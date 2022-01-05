@@ -96,6 +96,35 @@
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
       "labels": ["renovate/helm", "dep/patch"]
+    },
+    // auto-updates plex
+    {
+      "datasources": ["docker"],
+      "versioning": "loose",
+      "automerge": "true",
+      "packageNames": ["plexinc/pms-docker"]
+    },
+    // auto-updates minor/patch
+    {
+      "datasources": ["docker"],
+      "automerge": true,
+      "requiredStatusChecks": null,
+      "updateTypes": ["minor", "patch"],
+      "packageNames": [
+        "factoriotools/factorio",
+        "codercom/code-server",
+        "eclipse-mosquitto"
+      ]
+    },
+    // auto-updates patch
+    {
+      "datasources": ["docker"],
+      "automerge": true,
+      "requiredStatusChecks": null,
+      "updateTypes": ["patch"],
+      "packageNames": [
+        "ghcr.io/home-assistant/home-assistant"
+      ]
     }
   ]
 }
