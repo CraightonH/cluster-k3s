@@ -102,7 +102,8 @@
       "datasources": ["docker"],
       "versioning": "loose",
       "automerge": true,
-      "packageNames": ["plexinc/pms-docker"]
+      "packageNames": ["plexinc/pms-docker"],
+      "labels": ["auto-update"]
     },
     // auto-updates minor/patch
     {
@@ -114,7 +115,8 @@
         "factoriotools/factorio",
         "codercom/code-server",
         "eclipse-mosquitto"
-      ]
+      ],
+      "labels": ["auto-update"]
     },
     // auto-updates patch
     {
@@ -124,7 +126,8 @@
       "updateTypes": ["patch"],
       "packageNames": [
         "ghcr.io/home-assistant/home-assistant"
-      ]
+      ],
+      "labels": ["auto-update"]
     }
   ]
 }
