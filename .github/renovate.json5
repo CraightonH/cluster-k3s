@@ -102,6 +102,17 @@
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true,
       "addLabels": ["auto-merge"]
-    }
+    },
+    // auto-merge major version updates
+    {
+      "matchUpdateTypes": ["major"],
+      "automerge": true,
+      "addLabels": ["auto-merge"],
+      "packageNames": [
+        "codercom/code-server",
+        "ghcr.io/toboshii/hajimari",
+        "eclipse-mosquitto"
+      ]
+    },    
   ]
 }
