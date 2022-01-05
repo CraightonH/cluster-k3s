@@ -70,64 +70,38 @@
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["major"],
-      "labels": ["renovate/image", "dep/major"]
+      "addLabels": ["renovate/image", "dep/major"]
     },
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor"],
-      "labels": ["renovate/image", "dep/minor"]
+      "addLabels": ["renovate/image", "dep/minor"]
     },
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["patch"],
-      "labels": ["renovate/image", "dep/patch"]
+      "addLabels": ["renovate/image", "dep/patch"]
     },
     {
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["major"],
-      "labels": ["renovate/helm", "dep/major"]
+      "addLabels": ["renovate/helm", "dep/major"]
     },
     {
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["minor"],
-      "labels": ["renovate/helm", "dep/minor"]
+      "addLabels": ["renovate/helm", "dep/minor"]
     },
     {
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
-      "labels": ["renovate/helm", "dep/patch"]
+      "addLabels": ["renovate/helm", "dep/patch"]
     },
-    // auto-updates plex
+    // auto-merge non-major version updates
     {
-      "datasources": ["docker"],
-      "versioning": "loose",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true,
-      "packageNames": ["plexinc/pms-docker"],
-      "labels": ["auto-update"]
-    },
-    // auto-updates major/minor/patch
-    {
-      "datasources": ["docker"],
-      "automerge": true,
-      "requiredStatusChecks": null,
-      "updateTypes": ["major","minor", "patch"],
-      "packageNames": [
-        "factoriotools/factorio",
-        "codercom/code-server",
-        "eclipse-mosquitto"
-      ],
-      "labels": ["auto-update"]
-    },
-    // auto-updates patch
-    {
-      "datasources": ["docker"],
-      "automerge": true,
-      "requiredStatusChecks": null,
-      "updateTypes": ["patch"],
-      "packageNames": [
-        "ghcr.io/home-assistant/home-assistant"
-      ],
-      "labels": ["auto-update"]
+      "addLabels": ["auto-merge"]
     }
   ]
 }
