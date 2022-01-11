@@ -97,6 +97,21 @@
       "matchUpdateTypes": ["patch"],
       "addLabels": ["renovate/helm", "dep/patch"]
     },
+    // auto-merge patch and lower version updates
+    {
+      "matchUpdateTypes": ["patch", "pin", "digest"],
+      "automerge": true,
+      "addLabels": ["auto-merge"]
+    },
+    // auto-merge minor version updates
+    {
+      "matchUpdateTypes": ["minor"],
+      "automerge": true,
+      "addLabels": ["auto-merge"],
+      "excludePackageNames": [
+        "ghcr.io/home-assistant/home-assistant"
+      ]
+    },
     // auto-merge major version updates
     {
       "matchUpdateTypes": ["major"],
@@ -107,21 +122,6 @@
         "ghcr.io/toboshii/hajimari",
         "eclipse-mosquitto"
       ]
-    },    
-    // auto-merge minor version updates
-    {
-      "matchUpdateTypes": ["minor"],
-      "automerge": true,
-      "addLabels": ["auto-merge"],
-      "excludePackageNames": [
-        "ghcr.io/home-assistant/home-assistant"
-      ]
-    },
-    // auto-merge patch and lower version updates
-    {
-      "matchUpdateTypes": ["patch", "pin", "digest"],
-      "automerge": true,
-      "addLabels": ["auto-merge"]
-    }
+    }    
   ]
 }
