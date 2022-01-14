@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - metrics-server
   - reloader
-#  - nfs-subdir-external-provider
+  - nfs-subdir-external-provider
