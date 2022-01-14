@@ -6,6 +6,7 @@ resources:
   - networking
   - system-upgrade
   - cattle-system
+  - monitoring
   - home
   - media
   - games
