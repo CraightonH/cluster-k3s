@@ -21,10 +21,10 @@ spec:
   values:
     replicaCount: 1
     nfs:
-      server: "${NAS_ADDRESS}"
+      server: ${NAS_ADDRESS}
       path: "/volume12"
     storageClass:
-      defaultClass: true
+      defaultClass: false
       pathPattern: "${.PVC.namespace}-${.PVC.name}"
     affinity:
       podAntiAffinity:
