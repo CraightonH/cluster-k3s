@@ -21,7 +21,7 @@ spec:
   values:
     replicaCount: 1
     nfs:
-      server: ${NAS_ADDRESS}
+      server: 192.168.1.20
       path: "/volume12"
     storageClass:
       defaultClass: false
