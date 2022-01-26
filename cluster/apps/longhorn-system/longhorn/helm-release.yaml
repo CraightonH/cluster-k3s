@@ -1,0 +1,95 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: longhorn
+  namespace: longhorn-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.longhorn.io
+      chart: longhorn/longhorn
+      version: 1.2.3
+      sourceRef:
+        kind: HelmRepository
+        name: longhorn
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      longhorn:
+        engine:
+          repository: longhornio/longhorn-engine
+          tag: v1.2.3
+        manager:
+          repository: longhornio/longhorn-manager
+          tag: v1.2.3
+        ui:
+          repository: longhornio/longhorn-ui
+          tag: v1.2.3
+        instanceManager:
+          repository: longhornio/longhorn-instance-manager
+          tag: v1_20211210
+        shareManager:
+          repository: longhornio/longhorn-share-manager
+          tag: v1_20211020
+        backingImageManager:
+          repository: longhornio/backing-image-manager
+          tag: v2_20210820
+      csi:
+        attacher:
+          repository: longhornio/csi-attacher
+          tag: v3.2.1
+        provisioner:
+          repository: longhornio/csi-provisioner
+          tag: v2.1.2
+        nodeDriverRegistrar:
+          repository: longhornio/csi-node-driver-registrar
+          tag: v2.3.0
+        resizer:
+          repository: longhornio/csi-resizer
+          tag: v1.2.0
+        snapshotter:
+          repository: longhornio/csi-snapshotter
+          tag: v3.0.3
+      pullPolicy: IfNotPresent
+
+    service:
+      ui:
+        type: ClusterIP
+        nodePort: null
+      manager:
+        type: ClusterIP
+        nodePort: ""
+
+    persistence:
+      defaultClass: false
+      defaultClassReplicaCount: 1
+      reclaimPolicy: Retain
+
+    csi:
+      attacherReplicaCount: 1
+      provisionerReplicaCount: 1
+      resizerReplicaCount: 1
+      snapshotterReplicaCount: 1
+
+    defaultSettings:
+      backupTarget: nfs://192.168.1.20:/volume2/plex_config/backups
+      defaultReplicaCount: 1
+
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        kubernetes.io/ingress.class: traefik 
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+        external-dns/is-public: "true"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hajimari.io/appName: "Longhorn"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "cow"
+      host: "longhorn.${SECRET_DOMAIN}"
+      tls: true
+      tlsSecret: longhorn-tls
