@@ -55,14 +55,6 @@ spec:
           tag: v3.0.3
       pullPolicy: IfNotPresent
 
-    service:
-      ui:
-        type: ClusterIP
-        nodePort: null
-      manager:
-        type: ClusterIP
-        nodePort: ""
-
     persistence:
       defaultClass: false
       defaultClassReplicaCount: 1
@@ -80,7 +72,6 @@ spec:
 
     ingress:
       enabled: true
-      ingressClassName: traefik
       annotations:
         kubernetes.io/ingress.class: traefik 
         external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
