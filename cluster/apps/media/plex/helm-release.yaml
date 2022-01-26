@@ -60,7 +60,7 @@ spec:
         existingClaim: "plex-data-pvc"
       config:
         enabled: true
-        existingClaim: "plex-config-pvc"
+        existingClaim: "plex-config-pvc-lh"
 
     affinity:
       nodeAffinity:
