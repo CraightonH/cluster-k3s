@@ -109,7 +109,9 @@
       "automerge": true,
       "addLabels": ["auto-merge"],
       "excludePackageNames": [
-        "ghcr.io/home-assistant/home-assistant"
+        "ghcr.io/home-assistant/home-assistant",
+        "traefik",
+        "cert-manager"
       ]
     },
     // auto-merge major version updates
