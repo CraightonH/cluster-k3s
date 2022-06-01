@@ -69,7 +69,7 @@ spec:
       logger:
         default: debug
       mqtt:
-        host: mosquitto
+        host: mosquitto.home.svc.cluster.local
       objects:
         track:
           - person
