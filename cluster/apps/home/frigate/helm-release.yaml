@@ -66,6 +66,8 @@ spec:
         mountPath: /dev/shm
     
     config: |
+      logger:
+        default: debug
       mqtt:
         host: mosquitto
       objects:
