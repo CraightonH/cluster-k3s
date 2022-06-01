@@ -68,61 +68,60 @@ spec:
     configmap:
       config: 
         enabled: true
-        data: |
-          logger:
-            default: debug
-          mqtt:
-            host: mosquitto
-          objects:
-            track:
-              - person
-          ffmpeg:
-            output_args:
-              record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c copy -c:a aac
-          record:
-            enabled: True
-            retain_days: 5
-          snapshots:
-            enabled: True
-            timestamp: False
-            bounding_box: True
-            height: 450
-            retain:
-              default: 5
-          rtmp:
-            enabled: True
-          cameras:
-            garage:
-              ffmpeg:
-                inputs:
-                  - path: ${SECRET_CAMERA_CONNECTION_GARAGE}
-                    roles:
-                      - detect
-                      - record
-              detect:
-                height: 1080
-                width: 1920
-              motion:
-                mask:
-                  - 1373,1080,1371,1005,1870,1005,1870,1080
-            declanroom:
-              ffmpeg:
-                inputs:
-                  - path: ${SECRET_CAMERA_CONNECTION_DECLANROOM}
-                    roles:
-                      - detect
-                      - record
-              detect:
-                height: 1080
-                width: 1920
-              motion:
-                mask:
-                  - 1373,1080,1371,1005,1870,1005,1870,1080
-          database:
-            path: /media/frigate.db
-          detectors:
-            cpu1:
-              type: cpu
+        data: 
+          config.yml: |
+            mqtt:
+              host: mosquitto
+            objects:
+              track:
+                - person
+            ffmpeg:
+              output_args:
+                record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c copy -c:a aac
+            record:
+              enabled: True
+              retain_days: 5
+            snapshots:
+              enabled: True
+              timestamp: False
+              bounding_box: True
+              height: 450
+              retain:
+                default: 5
+            rtmp:
+              enabled: True
+            cameras:
+              garage:
+                ffmpeg:
+                  inputs:
+                    - path: ${SECRET_CAMERA_CONNECTION_GARAGE}
+                      roles:
+                        - detect
+                        - record
+                detect:
+                  height: 1080
+                  width: 1920
+                motion:
+                  mask:
+                    - 1373,1080,1371,1005,1870,1005,1870,1080
+              declanroom:
+                ffmpeg:
+                  inputs:
+                    - path: ${SECRET_CAMERA_CONNECTION_DECLANROOM}
+                      roles:
+                        - detect
+                        - record
+                detect:
+                  height: 1080
+                  width: 1920
+                motion:
+                  mask:
+                    - 1373,1080,1371,1005,1870,1005,1870,1080
+            database:
+              path: /media/frigate.db
+            detectors:
+              cpu1:
+                type: cpu
 
     affinity:
       nodeAffinity:
