@@ -6,3 +6,4 @@ resources:
   - frigate
   - home-assistant
   - esphome
+  - mealie
