@@ -23,6 +23,12 @@ spec:
       TZ: "America/Denver"
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
+    service:
+      main:
+        ports:
+          api:
+            enabled: true
+            port: 9001 # default used by another service, specifiying available port here
     ingress:
       main:
         enabled: true
