@@ -23,7 +23,7 @@ spec:
     speaker:
       image:
         repository: quay.io/metallb/speaker
-        tag: v0.12.1
+        tag: 0.13.2
     configInline:
       address-pools:
         - name: default
