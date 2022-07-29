@@ -29,7 +29,7 @@ spec:
               name: factorio-vol
           env:
             - name: SAVE_NAME
-              value: RailWorld
+              value: live
             - name: LOAD_LATEST_SAVE
               value: "false"
             - name: TOKEN
