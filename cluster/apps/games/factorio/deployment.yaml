@@ -32,6 +32,10 @@ spec:
               value: live
             - name: LOAD_LATEST_SAVE
               value: "false"
+            - name: TOKEN
+              value: ${SECRET_FACTORIO_TOKEN}
+            - name: USERNAME
+              value: ${SECRET_FACTORIO_USERNAME}
       volumes:
         - name: factorio-vol
           persistentVolumeClaim:
