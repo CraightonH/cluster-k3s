@@ -15,7 +15,7 @@ spec:
         spec:
           containers:
           - name: ema-reader
-            image: craighton/ema-reader:2022.8.5
+            image: craighton/ema-reader:2022.8.7
             imagePullPolicy: IfNotPresent
             envFrom:
             - secretRef:
