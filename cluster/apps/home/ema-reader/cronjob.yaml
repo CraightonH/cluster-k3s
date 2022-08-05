@@ -22,9 +22,9 @@ spec:
               name: ema-reader-secrets
             volumeMounts:
             - mountPath: /ema-reader
-              name: ema-reader-config
+              name: config
           restartPolicy: Never
           volumes:
           - name: config
-            configmap:
+            configMap:
               name: ema-reader-config
