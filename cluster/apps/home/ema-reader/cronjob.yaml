@@ -19,7 +19,7 @@ spec:
             imagePullPolicy: IfNotPresent
             envFrom:
             - secretRef:
-              name: ema-reader-secrets
+                name: ema-reader-secrets
             volumeMounts:
             - mountPath: /ema-reader
               name: config
