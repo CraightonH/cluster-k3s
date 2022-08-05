@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - secret.yaml
   - configmap.yaml
-  # - cronjob.yaml
+  - cronjob.yaml
