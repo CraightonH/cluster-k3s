@@ -6,8 +6,10 @@ metadata:
   namespace: home
 spec:
   schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
   jobTemplate:
-    ttlSecondsAfterFinished: 600
     spec:
       template:
         spec:
