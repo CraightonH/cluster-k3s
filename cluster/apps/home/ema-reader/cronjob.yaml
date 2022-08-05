@@ -1,0 +1,28 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ema-reader
+  namespace: home
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    ttlSecondsAfterFinished: 600
+    spec:
+      template:
+        spec:
+          containers:
+          - name: ema-reader
+            image: craighton/ema-reader:2022.8.5
+            imagePullPolicy: IfNotPresent
+            envFrom:
+            - secretRef:
+              name: ema-reader-secrets
+            volumeMounts:
+            - mountPath: /ema-reader
+              name: ema-reader-config
+          restartPolicy: Never
+          volumes:
+          - name: config
+            configmap:
+              name: ema-reader-config

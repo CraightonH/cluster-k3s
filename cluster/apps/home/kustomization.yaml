@@ -7,3 +7,4 @@ resources:
   - home-assistant
   - esphome
   - mealie
+  - ema-reader
