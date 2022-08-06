@@ -44,6 +44,8 @@ data:
     mqtt = {
         "client_id": "ema-reader",
         "qos": 0,
+        "retainStatistics": True,
+        "retainMonitorStatus": False,
         "topic_prefix": "homeassistant/energy/solar/",
         "topic_current_power": "power_current",
         "topic_energy_today": "energy_today",
