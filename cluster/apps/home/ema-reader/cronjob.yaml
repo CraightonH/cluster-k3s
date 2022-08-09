@@ -20,8 +20,10 @@ spec:
             volumeMounts:
             - mountPath: /ema-reader/config
               name: config
+              subPath: config.yml
             - mountPath: /ema-reader/secrets
               name: secret
+              subPath: secret.yml
           restartPolicy: Never
           volumes:
           - name: config
