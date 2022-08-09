@@ -18,12 +18,10 @@ spec:
             image: craighton/ema-reader:2022.8.10
             imagePullPolicy: IfNotPresent
             volumeMounts:
-            - mountPath: /ema-reader/config
+            - mountPath: /app/config
               name: config
-              subPath: config.yml
-            - mountPath: /ema-reader/secrets
+            - mountPath: /app/secrets
               name: secret
-              subPath: secret.yml
           restartPolicy: Never
           volumes:
           - name: config
