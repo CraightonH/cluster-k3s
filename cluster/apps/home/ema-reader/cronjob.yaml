@@ -17,14 +17,16 @@ spec:
           - name: ema-reader
             image: craighton/ema-reader:2022.8.8
             imagePullPolicy: IfNotPresent
-            envFrom:
-            - secretRef:
-                name: ema-reader-secrets
             volumeMounts:
-            - mountPath: /ema-reader
+            - mountPath: /ema-reader/config
               name: config
+            - mountPath: /ema-reader/secret
+              name: secret
           restartPolicy: Never
           volumes:
           - name: config
             configMap:
               name: ema-reader-config
+          - name: secret
+            secret:
+              secretName: ema-reader-secrets
