@@ -15,7 +15,7 @@ spec:
         spec:
           containers:
           - name: ema-reader
-            image: craighton/ema-reader:2022.8.11
+            image: craighton/ema-reader:2022.8.12
             imagePullPolicy: IfNotPresent
             volumeMounts:
             - mountPath: /app/config
