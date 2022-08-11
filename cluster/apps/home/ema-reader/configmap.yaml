@@ -6,9 +6,10 @@ metadata:
   namespace: home
 data:
   config.yml: |-
+    ---
     webdriver:
       driver_opts:
-      - "--headless"
+        - "--headless"
 
     auth:
       login_url: "https://www.apsystemsema.com/ema/index.action"
@@ -35,33 +36,40 @@ data:
         Referer: "https://www.apsystemsema.com/ema/security/optmainmenu/intoLargeDashboard.action"
         Referrer-Policy: "strict-origin-when-cross-origin"
       endpoints:
-        getProductionInfo: "https://www.apsystemsema.com/ema/ajax/getDashboardApiAjax/getDashboardProductionInfoAjax"
-   
+          getProductionInfo: "https://www.apsystemsema.com/ema/ajax/getDashboardApiAjax/getDashboardProductionInfoAjax"
+
     response_fields:
       power_current: "lastPower"
       energy_today: "today"
       energy_lifetime: "lifetime"
       monitor_status: "meterFlag"
       co2_saved: "co2"
-    
+
     exception_handling: # these settings will retry over about 1 minute
       max_attempts: 7
       initial_interval: 1
       backoff_multiplier: 2
-    
+
     mqtt:
       client_id: "ema-reader"
-      qos: 0
-      retainStatistics: true
-      retainMonitorStatus: false
-      topic:
-        prefix: "homeassistant/energy/solar/"
-        current_power: "power_current"
-        energy_today: "energy_today"
-        energy_lifetime: "energy_lifetime"
-        monitor_status: "monitor_status"
-        co2_saved: "co2_saved"
-    
+      topic_prefix: "homeassistant/energy/solar/"
+      topics:
+        - name: "power_current"
+          qos: 0
+          retain: true
+        - name: "energy_today"
+          qos: 0
+          retain: true
+        - name: "energy_lifetime"
+          qos: 0
+          retain: true
+        - name: "monitor_status"
+          qos: 0
+          retain: true
+        - name: "co2_saved"
+          qos: 0
+          retain: true    
+
     logging:
       level: "INFO"
       format: '%(asctime)s - %(levelname)s - [%(name)s] %(message)s'
