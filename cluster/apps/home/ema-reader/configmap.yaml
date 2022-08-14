@@ -36,7 +36,17 @@ data:
         Referer: "https://www.apsystemsema.com/ema/security/optmainmenu/intoLargeDashboard.action"
         Referrer-Policy: "strict-origin-when-cross-origin"
       endpoints:
-          getProductionInfo: "https://www.apsystemsema.com/ema/ajax/getDashboardApiAjax/getDashboardProductionInfoAjax"
+        getProductionInfo: 
+          uri: "https://www.apsystemsema.com/ema/ajax/getDashboardApiAjax/getDashboardProductionInfoAjax"
+        getViewPowerByViewAjax:
+          uri: "https://www.apsystemsema.com/ema/ajax/getViewAjax/getViewPowerByViewAjax" 
+          date_format: "%Y%m%d"
+          body: "sid=2c9f934a81ff8f0501821d822114610b&vid=2c9f934a8247b5f601824c3e246238a4&iid=&date=" # requires adding current date in YYYMMDD format
+          delimiter: ","
+          response_keys:
+            panels: "detail"
+            total_power: "power"
+            time: "time"
 
     response_fields:
       power_current: "lastPower"
@@ -51,6 +61,19 @@ data:
       backoff_multiplier: 2
 
     mqtt:
+      create_home_assistant_sensors: true
+      home_assistant:
+        panel_sensors:
+          prefix: "homeassistant/"
+          component: "sensor"
+          config_suffix: "config"
+          state_suffix: "state"
+          device_class: power
+          unit_of_measurement: W
+          value_template: "{{ value_json.value }}"
+          name: "Solar Panel"
+          retain: true
+          qos: 0
       client_id: "ema-reader"
       topic_prefix: "homeassistant/energy/solar/"
       topics:
@@ -71,6 +94,6 @@ data:
           retain: true    
 
     logging:
-      level: "INFO"
+      level: "info"
       format: '%(asctime)s - %(levelname)s - [%(name)s] %(message)s'
       redact_sensitive_fields: true
