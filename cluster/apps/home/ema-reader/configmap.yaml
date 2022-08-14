@@ -72,6 +72,7 @@ data:
           unit_of_measurement: W
           value_template: "{{ value_json.value | int }}"
           name: "Solar Panel"
+          unique_id: "solar_panel"
           retain: true
           qos: 0
       client_id: "ema-reader"
