@@ -70,7 +70,7 @@ data:
           state_suffix: "state"
           device_class: power
           unit_of_measurement: W
-          value_template: "{{ value_json.value }}"
+          value_template: "{{ value_json.value | int }}"
           name: "Solar Panel"
           retain: true
           qos: 0
@@ -94,6 +94,6 @@ data:
           retain: true    
 
     logging:
-      level: "info"
+      level: "debug"
       format: '%(asctime)s - %(levelname)s - [%(name)s] %(message)s'
       redact_sensitive_fields: true
