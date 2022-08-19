@@ -59,7 +59,7 @@ spec:
         enabled: true
         image:
           repository: codercom/code-server
-          tag: 4.5.2
+          tag: 4.6.0
         env:
           TZ: "America/Denver"
         workingDir: "/config"
