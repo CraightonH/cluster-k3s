@@ -111,7 +111,9 @@
       "excludePackageNames": [
         "ghcr.io/home-assistant/home-assistant",
         "traefik",
-        "cert-manager"
+        "cert-manager",
+        "quay.io/metallb/controller",
+        "quay.io/metallb/speaker"
       ]
     },
     // auto-merge major version updates
@@ -122,7 +124,9 @@
       "packageNames": [
         "codercom/code-server",
         "ghcr.io/toboshii/hajimari",
-        "eclipse-mosquitto"
+        "eclipse-mosquitto",
+        "quay.io/metallb/controller",
+        "quay.io/metallb/speaker"
       ]
     }    
   ]
