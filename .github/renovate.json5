@@ -113,7 +113,8 @@
         "traefik",
         "cert-manager",
         "quay.io/metallb/controller",
-        "quay.io/metallb/speaker"
+        "quay.io/metallb/speaker",
+        "metallb"
       ]
     },
     // auto-merge major version updates
@@ -126,7 +127,8 @@
         "ghcr.io/toboshii/hajimari",
         "eclipse-mosquitto",
         "quay.io/metallb/controller",
-        "quay.io/metallb/speaker"
+        "quay.io/metallb/speaker",
+        "metallb"
       ]
     }    
   ]
