@@ -24,6 +24,9 @@ spec:
       image:
         repository: quay.io/metallb/speaker
         tag: v0.13.4
+      frr:
+        image:
+          repository: frrouting/frr
     configInline:
       address-pools:
         - name: default
