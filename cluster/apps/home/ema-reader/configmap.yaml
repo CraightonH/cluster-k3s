@@ -20,7 +20,7 @@ data:
       exception_page: "ema/exceptionIndex.action"
 
     api:
-      polling_interval: 300
+      timeout: 30
       headers: 
         accept: "application/json, text/javascript, */*; q=0.01"
         accept-language: "en-US,en;q=0.9"
