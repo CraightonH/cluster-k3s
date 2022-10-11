@@ -23,7 +23,7 @@ spec:
     speaker:
       image:
         repository: quay.io/metallb/speaker
-        tag: v0.13.5
+        tag: v0.13.6
       frr:
         image:
           repository: frrouting/frr
