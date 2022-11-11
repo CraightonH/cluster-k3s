@@ -11,7 +11,8 @@ spec:
       # renovate: registryUrl=https://metallb.github.io/metallb
       chart: metallb
       version: 0.12.1
-      sourceRef:        kind: HelmRepository
+      sourceRef:        
+        kind: HelmRepository
         name: metallb-charts
         namespace: flux-system
   values:
