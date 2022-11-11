@@ -21,7 +21,7 @@ spec:
     spec: 
       containers:
         - name: factorio
-          image: factoriotools/factorio:1.1.71
+          image: factoriotools/factorio:1.1.72
           ports:
             - containerPort: 34197
           volumeMounts:
