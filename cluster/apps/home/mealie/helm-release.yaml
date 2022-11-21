@@ -22,7 +22,7 @@ spec:
       tag: frontend-v1.0.0beta-2
     api:
       image: 
-        repository: hkotel/mealie
+        repository: hkotel/mealie 
         tag: api-v1.0.0beta-2
       env:
         TZ: "America/Denver"
