@@ -60,6 +60,12 @@ spec:
         size: 20Gi
         storageClass: longhorn
     persistence:
+      config:
+        enabled: true
+        type: nfs
+        server: "${NAS_ADDRESS}"
+        path: /volume2/plex_config
+        mountPath: /media
       media:
         enabled: true
         type: nfs
