@@ -19,6 +19,6 @@ spec:
     replicas: 1
     ingress:
       enabled: false
-    #   tls:
+    #   tls: 
     #     source: letsEncrypt
     # hostname: rancher.${SECRET_DOMAIN}
