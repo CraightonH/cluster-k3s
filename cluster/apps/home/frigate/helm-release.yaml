@@ -80,7 +80,8 @@ spec:
                 record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c copy -c:a aac
             record:
               enabled: True
-              days: 5
+              retain:
+                days: 5
             snapshots:
               enabled: True
               timestamp: False
