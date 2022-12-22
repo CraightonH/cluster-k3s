@@ -70,6 +70,8 @@ spec:
         enabled: true
         data: 
           config.yml: |
+            mqtt:
+              host: mosquitto
             objects:
               track:
                 - person
