@@ -28,7 +28,7 @@ spec:
       tag: 1.27.2  
     ingress:
       main:
-        enabled: true
+        enabled: false
         annotations:
           kubernetes.io/ingress.class: traefik 
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
