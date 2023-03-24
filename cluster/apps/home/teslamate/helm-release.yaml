@@ -49,24 +49,21 @@ spec:
             secretName: "teslamate-tls"
     env:
       MQTT_HOST: mosquitto
+      DATABASE_PASS: ${SECRET_POSTGRES_TESLAMATE_PASSWORD}
     envFrom:
       - secretRef:
           name: teslamate-secrets
     postgresql:
       enabled: true
-      # auth:
-      #   database: teslamate
-      #   existingSecret: postgres-secrets
-      #   secretKeys:
-      #     adminPasswordKey: adminPassword
-      #     userPasswordKey: userPassword
+      extraEnvVarsSecret:
+      auth:
+        enablePostgresUser: false
+        database: teslamate
+        username: teslamate
+        password: ${SECRET_POSTGRES_TESLAMATE_PASSWORD}
+        # existingSecret: postgres-secrets
+        #   userPasswordKey: userPassword
       primary:
         persistence:
           enabled: true
           storageClass: nfs-client
-  # copied from another's chart
-  # valuesFrom:
-  #   - kind: Secret
-  #     name: postgresql-password
-  #     valuesKey: data
-  #     targetPath: postgresql.auth.postgresPassword

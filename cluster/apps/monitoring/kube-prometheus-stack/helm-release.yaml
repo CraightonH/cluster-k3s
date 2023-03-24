@@ -102,7 +102,17 @@ spec:
         tls:
           - hosts:
               - "grafana.${SECRET_DOMAIN}"
-            secretName: "teslamate-tls"        
+            secretName: "grafana-tls"     
+      additionalDataSources:
+        - name: TeslaMate
+          type: PostgreSQL
+          url: teslamate-postgresql.home
+          basicAuth: true
+          basicAuthUser: teslamate
+          basicAuthPassword: ${SECRET_POSTGRES_TESLAMATE_PASSWORD}
+          editable: false
+          jsonData:
+            tlsSkipVerify: true
     prometheus:
       enabled: false
       ingress:
