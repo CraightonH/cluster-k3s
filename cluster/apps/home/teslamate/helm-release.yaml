@@ -60,9 +60,10 @@ spec:
         enablePostgresUser: false
         database: teslamate
         username: teslamate
-        password: ${SECRET_POSTGRES_TESLAMATE_PASSWORD}
-        # existingSecret: postgres-secrets
-        #   userPasswordKey: userPassword
+        existingSecret: postgres-secrets
+        secretKeys:
+          adminPasswordKey: adminPassword
+          userPasswordKey: userPassword
       primary:
         persistence:
           enabled: true
