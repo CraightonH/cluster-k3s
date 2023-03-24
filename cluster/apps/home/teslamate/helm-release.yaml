@@ -55,7 +55,7 @@ spec:
           name: teslamate-secrets
     postgresql:
       enabled: true
-      extraEnvVarsSecret:
+      # extraEnvVarsSecret:
       auth:
         enablePostgresUser: false
         database: teslamate
