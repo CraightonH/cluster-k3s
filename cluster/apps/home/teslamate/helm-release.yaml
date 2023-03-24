@@ -23,6 +23,9 @@ spec:
   # Default values
   # https://github.com/k8s-at-home/charts/blob/master/charts/stable/teslamate/values.yaml
   values:
+    image:
+      repository: teslamate/teslamate
+      tag: 1.27.2  
     ingress:
       main:
         enabled: true
