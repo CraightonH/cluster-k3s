@@ -48,7 +48,7 @@ spec:
       MQTT_HOST: mosquitto
     envFrom:
       - secretRef:
-        name: teslamate-secrets
+          name: teslamate-secrets
     postgresql:
       enabled: true
       # auth:
