@@ -108,9 +108,9 @@ spec:
           type: PostgreSQL
           url: teslamate-postgresql.home
           basicAuth: true
-          basicAuthUser: teslamate
-          basicAuthPassword: ${SECRET_POSTGRES_TESLAMATE_PASSWORD}
-          editable: false
+          basicAuthUser: postgres
+          basicAuthPassword: ${SECRET_POSTGRES_PASSWORD}
+          editable: true
           jsonData:
             tlsSkipVerify: true
     prometheus:
