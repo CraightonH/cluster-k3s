@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: teslamate
+  namespace: teslamate
+spec:
+  releaseName: teslamate
+  chart:
+    spec:
+      chart: teslamate
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  test:
+    # Fix problem where helm fails to uninstall
+    enable: false
+  # Default values
+  # https://github.com/k8s-at-home/charts/blob/master/charts/stable/teslamate/values.yaml
+  values:
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: traefik 
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hajimari.io/appName: "Tesla Mate"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "car"
+        hosts:
+          - host: "teslamate.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "teslamate.${SECRET_DOMAIN}"
+            secretName: "teslamate-tls"        
+    env:
+      MQTT_HOST: mosquitto
+    envFrom:
+      - secretRef:
+        name: teslamate-secrets
+    postgresql:
+      enabled: true
+      # auth:
+      #   database: teslamate
+      #   existingSecret: postgres-secrets
+      #   secretKeys:
+      #     adminPasswordKey: adminPassword
+      #     userPasswordKey: userPassword
+      primary:
+        persistence:
+          enabled: true
+          storageClass: nfs-client
+  # copied from another's chart
+  # valuesFrom:
+  #   - kind: Secret
+  #     name: postgresql-password
+  #     valuesKey: data
+  #     targetPath: postgresql.auth.postgresPassword

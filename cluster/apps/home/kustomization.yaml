@@ -8,3 +8,4 @@ resources:
   - esphome
   - mealie
   - ema-reader
+  - teslamate
