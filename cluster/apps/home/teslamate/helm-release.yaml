@@ -46,7 +46,7 @@ spec:
         tls:
           - hosts:
               - "teslamate.${SECRET_DOMAIN}"
-            secretName: "teslamate-tls"        
+            secretName: "teslamate-tls"
     env:
       MQTT_HOST: mosquitto
     envFrom:
