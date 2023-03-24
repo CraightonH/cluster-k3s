@@ -41,7 +41,7 @@ spec:
                 - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
     kubelet:
-      enabled: true
+      enabled: false
       serviceMonitor:
         metricRelabelings:
           - action: replace
@@ -49,27 +49,27 @@ spec:
               - node
             targetLabel: instance
     kubeApiServer:
-      enabled: true
+      enabled: false
     kubeControllerManager:
-      enabled: true
+      enabled: false
       endpoints:
         - 192.168.1.140
         - 192.168.1.142
         - 192.168.1.144
     kubeScheduler:
-      enabled: true
+      enabled: false
       endpoints:
         - 192.168.1.140
         - 192.168.1.142
         - 192.168.1.144
     kubeProxy:
-      enabled: true
+      enabled: false
       endpoints:
         - 192.168.1.140
         - 192.168.1.142
         - 192.168.1.144
     kubeEtcd:
-      enabled: true
+      enabled: false
       endpoints:
         - 192.168.1.140
         - 192.168.1.142
@@ -83,7 +83,28 @@ spec:
           limits:
             cpu: 200m
             memory: 100Mi
+    grafana:
+      enabled: true
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: traefik
+        annotations:
+          kubernetes.io/ingress.class: traefik 
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
+          hajimari.io/appName: "Grafana"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "graph"
+        hosts:
+          - "grafana.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - "grafana.${SECRET_DOMAIN}"
     prometheus:
+      enabled: false
       ingress:
         enabled: true
         pathType: Prefix
@@ -114,6 +135,3 @@ spec:
           volumeClaimTemplate:
             spec:
               storageClassName: "nfs-client"
-              resources:
-                requests:
-                  storage: 50Gi

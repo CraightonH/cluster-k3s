@@ -10,3 +10,4 @@ resources:
   - home
   # - media
   - games
+  - monitoring
