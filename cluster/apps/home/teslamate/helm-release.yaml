@@ -46,16 +46,14 @@ spec:
         tls:
           - hosts:
               - "teslamate.${SECRET_DOMAIN}"
-            secretName: "teslamate-tls"
+            secretName: "teslamate-tls"        
     env:
       MQTT_HOST: mosquitto
-      DATABASE_PASS: ${SECRET_POSTGRES_TESLAMATE_PASSWORD}
     envFrom:
       - secretRef:
           name: teslamate-secrets
     postgresql:
       enabled: true
-      extraEnvVarsSecret: postgres-secrets
       primary:
         persistence:
           enabled: true
