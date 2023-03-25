@@ -114,6 +114,10 @@ spec:
           jsonData:
             sslmode: disable
             database: teslamate
+      plugins:
+        - pr0ps-trackmap-panel
+        - natel-plotly-panel
+        - https://github.com/panodata/panodata-map-panel/releases/download/0.16.0/panodata-map-panel-0.16.0.zip;grafana-worldmap-panel-ng
     prometheus:
       enabled: false
       ingress:
