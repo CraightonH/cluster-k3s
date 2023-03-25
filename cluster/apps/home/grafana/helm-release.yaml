@@ -1,0 +1,61 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: home
+spec:
+  releaseName: grafana
+  chart:
+    spec:
+      chart: grafana
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-charts
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  values:
+    enabled: true
+    ingress:
+      enabled: true
+      pathType: Prefix
+      annotations:
+        kubernetes.io/ingress.class: traefik 
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+        external-dns/is-public: "true"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hajimari.io/appName: "Grafana"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "graph"
+      hosts:
+        - "grafana.${SECRET_DOMAIN}"
+      tls:
+        - hosts:
+            - "grafana.${SECRET_DOMAIN}"
+          secretName: "grafana-tls"     
+    datasources:
+      datasources.yaml:
+        - name: TeslaMate
+          isDefault: true
+          type: postgres
+          url: teslamate-postgresql.home
+          user: postgres
+          database: teslamate
+          secureJsonData:
+            password: ${SECRET_POSTGRES_PASSWORD}
+          editable: true
+          jsonData:
+            sslmode: disable
+            database: teslamate
+    plugins:
+      - pr0ps-trackmap-panel
+      - natel-plotly-panel
+      - https://github.com/panodata/panodata-map-panel/releases/download/0.16.0/panodata-map-panel-0.16.0.zip;grafana-worldmap-panel-ng
+    persistence:
+      enabled: true
+      storageClassName: nfs-client
+      size: 10Gi
