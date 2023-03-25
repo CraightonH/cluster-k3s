@@ -107,12 +107,13 @@ spec:
         - name: TeslaMate
           type: postgres
           url: teslamate-postgresql.home
-          basicAuth: true
-          basicAuthUser: postgres
-          basicAuthPassword: ${SECRET_POSTGRES_PASSWORD}
+          user: postgres
+          secureJsonData:
+            password: ${SECRET_POSTGRES_PASSWORD}
           editable: true
           jsonData:
-            tlsSkipVerify: true
+            sslmode: disable
+            database: teslamate
     prometheus:
       enabled: false
       ingress:
