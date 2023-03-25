@@ -39,18 +39,20 @@ spec:
           secretName: "grafana-tls"     
     datasources:
       datasources.yaml:
-        - name: TeslaMate
-          isDefault: true
-          type: postgres
-          url: teslamate-postgresql.home
-          user: postgres
-          database: teslamate
-          secureJsonData:
-            password: ${SECRET_POSTGRES_PASSWORD}
-          editable: true
-          jsonData:
-            sslmode: disable
+        apiVersion: 1
+        datasources:
+          - name: TeslaMate
+            isDefault: true
+            type: postgres
+            url: teslamate-postgresql.home
+            user: postgres
             database: teslamate
+            secureJsonData:
+              password: ${SECRET_POSTGRES_PASSWORD}
+            editable: true
+            jsonData:
+              sslmode: disable
+              database: teslamate
     plugins:
       - pr0ps-trackmap-panel
       - natel-plotly-panel
