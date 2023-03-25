@@ -108,6 +108,7 @@ spec:
           type: postgres
           url: teslamate-postgresql.home
           user: postgres
+          database: teslamate
           secureJsonData:
             password: ${SECRET_POSTGRES_PASSWORD}
           editable: true
