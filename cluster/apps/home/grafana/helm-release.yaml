@@ -41,18 +41,17 @@ spec:
       datasources.yaml:
         apiVersion: 1
         datasources:
-          - name: TeslaMate
-            isDefault: true
-            type: postgres
-            url: teslamate-postgresql.home
-            user: postgres
+        - name: TeslaMate
+          isDefault: true
+          type: postgres
+          url: teslamate-postgresql.home
+          user: postgres
+          editable: true
+          jsonData:
             database: teslamate
-            secureJsonData:
-              password: ${SECRET_POSTGRES_PASSWORD}
-            editable: true
-            jsonData:
-              sslmode: disable
-              database: teslamate
+            sslmode: disable
+          secureJsonData:
+            password: ${SECRET_POSTGRES_PASSWORD}
     plugins:
       - pr0ps-trackmap-panel
       - natel-plotly-panel
