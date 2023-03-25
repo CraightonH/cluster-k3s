@@ -60,3 +60,5 @@ spec:
       enabled: true
       storageClassName: nfs-client
       size: 10Gi
+    adminUser: ${SECRET_TESLAMATE_GRAFANA_USERNAME}
+    adminPassword: ${SECRET_TESLAMATE_GRAFANA_PASSWORD}
