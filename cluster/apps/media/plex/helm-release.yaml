@@ -21,15 +21,15 @@ spec:
   upgrade:
     remediation:
       retries: 5
-  # dependsOn:
-  #   - name: longhorn
-  #     namespace: longhorn-system
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
   values:
     controller:
       type: deployment
     image:
       repository: plexinc/pms-docker
-      tag: 1.29.2.6364-6d72b0cf6
+      tag: 1.32.0.6918-6f393eda1
     env:
       TZ: "America/Denver"
     ingress:
@@ -60,12 +60,12 @@ spec:
         size: 20Gi
         storageClass: longhorn
     persistence:
-      config:
-        enabled: true
-        type: nfs
-        server: "${NAS_ADDRESS}"
-        path: /volume2/plex_config
-        mountPath: /media
+      # config:
+      #   enabled: true
+      #   type: nfs
+      #   server: "${NAS_ADDRESS}"
+      #   path: /volume2/plex_config
+      #   mountPath: /media
       media:
         enabled: true
         type: nfs
