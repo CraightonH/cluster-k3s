@@ -22,19 +22,22 @@ data:
     api:
       timeout: 30
       headers: 
-        accept: "application/json, text/javascript, */*; q=0.01"
-        accept-language: "en-US,en;q=0.9"
-        cache-control: "no-cache"
-        pragma: "no-cache"
-        sec-ch-ua: '" Not;A Brand";v="99", "Microsoft Edge";v="103", "Chromium";v="103"'
-        sec-ch-ua-mobile: "?0"
-        sec-ch-ua-platform: '"Windows"'
-        sec-fetch-dest: "empty"
-        sec-fetch-mode: "cors"
-        sec-fetch-site: "same-origin"
-        x-requested-with: "XMLHttpRequest"
-        Referer: "https://www.apsystemsema.com/ema/security/optmainmenu/intoLargeDashboard.action"
-        Referrer-Policy: "strict-origin-when-cross-origin"
+        authority: 'www.apsystemsema.com'
+        accept: 'application/json, text/javascript, */*; q=0.01'
+        accept-language: 'en-US,en;q=0.9'
+        cache-control: 'no-cache'
+        content-length: '0'
+        origin: 'https://www.apsystemsema.com'
+        pragma: 'no-cache'
+        referer: 'https://www.apsystemsema.com/ema/security/optmainmenu/intoLargeDashboard.action?language=en_US'
+        sec-ch-ua: '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"'
+        sec-ch-ua-mobile: '?0'
+        sec-ch-ua-platform: 'macOS'
+        sec-fetch-dest: 'empty'
+        sec-fetch-mode: 'cors'
+        sec-fetch-site: 'same-origin'
+        user-agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'
+        x-requested-with: 'XMLHttpRequest'
       endpoints:
         getProductionInfo: 
           uri: "https://www.apsystemsema.com/ema/ajax/getDashboardApiAjax/getDashboardProductionInfoAjax"
