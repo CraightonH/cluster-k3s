@@ -31,3 +31,12 @@ spec:
           - name: secret
             secret:
               secretName: ema-reader-secrets
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                    - amd64
