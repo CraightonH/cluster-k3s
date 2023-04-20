@@ -36,3 +36,5 @@ k3s_server_manifests_templates:
   - "calico-installation.yaml.j2"
   - "kube-vip-rbac.yaml.j2"
   - "kube-vip-daemonset.yaml.j2"
+
+k3s_become: true
