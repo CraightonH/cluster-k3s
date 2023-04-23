@@ -51,6 +51,7 @@ spec:
         size: 2Gi
         retain: false
         mountPath: *watch_dir
+        accessMode: ReadWriteOnce
       audiobooks:
         enabled: true
         existingClaim: plex-data-pvc
