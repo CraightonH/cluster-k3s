@@ -25,7 +25,7 @@ spec:
               name: secret
             - mountPath: /app/output
               name: plex
-              subPath: Audibooks
+              subPath: Audiobooks
             - mountPath: /app/watch
               name: watch
           restartPolicy: Never
