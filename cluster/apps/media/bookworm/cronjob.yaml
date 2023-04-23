@@ -5,7 +5,7 @@ metadata:
   name: bookworm
   namespace: media
 spec:
-  schedule: "* * * * *"
+  schedule: "*/2 * * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 1
