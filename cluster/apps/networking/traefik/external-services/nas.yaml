@@ -37,5 +37,6 @@ spec:
         paths:
         - path: /
           backend:
-            serviceName: nas
-            servicePort: https
+            service:
+              name: nas
+              port: https
