@@ -27,6 +27,16 @@ data:
         - -nostats
         - -y
 
+    ffprobe:
+      path: ffprobe
+      additional_args:
+        - -show_entries 
+        - format_tags=title 
+        - -of 
+        - compact=p=0 
+        - -v 
+        - "0"
+
     logging:
       level: info
       format: '%(asctime)s - %(levelname)s - [%(name)s] %(message)s'
