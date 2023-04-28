@@ -16,7 +16,7 @@ spec:
         spec:
           containers:
           - name: bookworm
-            image: craighton/bookworm:2023.4.1-python
+            image: craighton/bookworm:2023.4.2-python
             imagePullPolicy: IfNotPresent
             volumeMounts:
             - mountPath: /app/config
