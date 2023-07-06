@@ -68,8 +68,9 @@ spec:
         blackLists:
           ads:
             - https://raw.githubusercontent.com/CraightonH/cluster-k3s/main/cluster/apps/networking/blocky/my-blacklist.txt
-            - https://raw.githubusercontent.com/ookangzheng/dbl-oisd-nl/master/dbl.txt
+            - https://raw.githubusercontent.com/ookangzheng/dbl-oisd-nl/master/dbl_light.txt
             - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+            - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
             - |
               /^ad([sxv]?[0-9]*|system)[_.-]([^.[:space:]]+\.){1,}|[_.-]ad([sxv]?[0-9]*|system)[_.-]/
               /^(.+[_.-])?adse?rv(er?|ice)?s?[0-9]*[_.-]/
