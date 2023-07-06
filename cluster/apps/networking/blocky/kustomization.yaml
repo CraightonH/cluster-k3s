@@ -3,9 +3,5 @@ kind: Kustomization
 resources:
   - helm-release.yaml
 namespace: networking
-configMapGenerator:
-  - name: blocky-whitelist
-    files:
-      - my-whitelist.txt
 generatorOptions:
   disableNameSuffixHash: true
