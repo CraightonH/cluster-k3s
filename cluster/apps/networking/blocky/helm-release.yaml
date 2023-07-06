@@ -68,6 +68,7 @@ spec:
         blackLists:
           ads:
             - https://raw.githubusercontent.com/ookangzheng/dbl-oisd-nl/master/dbl.txt
+            - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt # AGGRESSIVE BLOCKING. DISABLE IF ISSUES ARISE
             - |
               /^ad([sxv]?[0-9]*|system)[_.-]([^.[:space:]]+\.){1,}|[_.-]ad([sxv]?[0-9]*|system)[_.-]/
               /^(.+[_.-])?adse?rv(er?|ice)?s?[0-9]*[_.-]/
@@ -95,9 +96,11 @@ spec:
         enable: false
         path: /metrics
       bootstrapDns: tcp+udp:1.1.1.1
-      httpPort: 4000
-      logFormat: json
-      logLevel: warn
+      ports: 
+        http: 4000
+      log:
+        format: json
+        level: warn
     persistence:
       whitelists:
         enabled: true
