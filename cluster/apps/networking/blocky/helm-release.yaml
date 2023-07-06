@@ -68,7 +68,7 @@ spec:
         blackLists:
           ads:
             - https://raw.githubusercontent.com/ookangzheng/dbl-oisd-nl/master/dbl.txt
-            - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt # AGGRESSIVE BLOCKING. DISABLE IF ISSUES ARISE
+            - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
             - |
               /^ad([sxv]?[0-9]*|system)[_.-]([^.[:space:]]+\.){1,}|[_.-]ad([sxv]?[0-9]*|system)[_.-]/
               /^(.+[_.-])?adse?rv(er?|ice)?s?[0-9]*[_.-]/
