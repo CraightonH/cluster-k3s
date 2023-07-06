@@ -103,6 +103,7 @@ spec:
       log:
         format: json
         level: info
+        privacy: true
     podAnnotations:
       configmap.reloader.stakater.com/reload: "blocky-config"
     affinity:
