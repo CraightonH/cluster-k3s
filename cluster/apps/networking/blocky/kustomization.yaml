@@ -3,5 +3,3 @@ kind: Kustomization
 resources:
   - helm-release.yaml
 namespace: networking
-generatorOptions:
-  disableNameSuffixHash: true

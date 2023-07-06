@@ -103,14 +103,6 @@ spec:
       log:
         format: json
         level: warn
-    persistence:
-      whitelists:
-        enabled: true
-        mountPath: /app/whitelists
-        type: custom
-        volumeSpec:
-          configMap:
-            name: blocky-whitelist
     podAnnotations:
       configmap.reloader.stakater.com/reload: "blocky-config"
     affinity:
