@@ -102,7 +102,7 @@ spec:
         http: 4000
       log:
         format: json
-        level: info
+        level: warn
         privacy: true
     podAnnotations:
       configmap.reloader.stakater.com/reload: "blocky-config"
