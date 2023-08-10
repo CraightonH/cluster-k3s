@@ -6,8 +6,8 @@ resources:
   - networking
   # - system-upgrade
   - cattle-system
-  # - longhorn-system
-  # - home
+  - longhorn-system
+  - home
   # - media
   # - games
   # - monitoring
