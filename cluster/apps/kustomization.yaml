@@ -4,10 +4,10 @@ resources:
   - default
   - kube-system
   - networking
-  - system-upgrade
+  # - system-upgrade
   - cattle-system
-  - longhorn-system
-  - home
-  - media
-  - games
-  - monitoring
+  # - longhorn-system
+  # - home
+  # - media
+  # - games
+  # - monitoring
