@@ -5,7 +5,7 @@ resources:
   - kube-system
   # - default
   # - system-upgrade
-  # - cattle-system
+  - cattle-system
   # - longhorn-system
   - home
   # - media
