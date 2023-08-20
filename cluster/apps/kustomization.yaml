@@ -3,8 +3,8 @@ kind: Kustomization
 resources:
   - networking
   - kube-system
-  # - default
-  # - system-upgrade
+  - default
+  - system-upgrade
   - cattle-system
   # - longhorn-system
   - home
