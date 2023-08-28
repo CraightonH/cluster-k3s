@@ -16,6 +16,11 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
+  dependsOn:
+    - name: traefik
+      namespace: networking
+    - name: cert-manager
+      namespace: cert-manager
   values:
     image:
       repository: hkotel/mealie

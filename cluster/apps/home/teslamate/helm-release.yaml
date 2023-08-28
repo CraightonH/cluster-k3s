@@ -13,6 +13,11 @@ spec:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
+  dependsOn:
+    - name: traefik
+      namespace: networking
+    - name: cert-manager
+      namespace: cert-manager
   interval: 5m
   install:
     remediation:

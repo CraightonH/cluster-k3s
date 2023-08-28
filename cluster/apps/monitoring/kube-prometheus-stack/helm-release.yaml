@@ -16,6 +16,11 @@ spec:
         name: prometheus-community-charts
         namespace: flux-system
       interval: 5m
+  dependsOn:
+    - name: traefik
+      namespace: networking
+    - name: cert-manager
+      namespace: cert-manager
   install:
     remediation:
       retries: 3

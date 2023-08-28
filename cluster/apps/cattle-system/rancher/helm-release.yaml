@@ -14,6 +14,11 @@ spec:
         kind: HelmRepository
         name: rancher-charts
         namespace: flux-system
+  dependsOn:
+    - name: traefik
+      namespace: networking
+    - name: cert-manager
+      namespace: cert-manager
   interval: 15m0s
   values:
     replicas: 1
