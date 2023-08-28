@@ -3,11 +3,11 @@ kind: Kustomization
 resources:
   - networking
   - kube-system
-  - default
-  - system-upgrade
-  - cattle-system
-  - longhorn-system
-  - home
-  - media
+  # - default
+  # - system-upgrade
+  # - cattle-system
+  # - longhorn-system
+  # - home
+  # - media
   # - games
   # - monitoring
