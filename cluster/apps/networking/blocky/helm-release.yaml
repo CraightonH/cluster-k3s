@@ -17,6 +17,7 @@ spec:
       interval: 5m
   dependsOn:
     - name: traefik
+      namespace: networking
   values:
     image:
       repository: ghcr.io/0xerr0r/blocky
