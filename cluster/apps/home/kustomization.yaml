@@ -6,7 +6,7 @@ resources:
   - frigate
   - home-assistant
   - esphome
-  - mealie
+  # - mealie
   - ema-reader
   - grafana
   - teslamate

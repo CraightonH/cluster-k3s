@@ -18,6 +18,8 @@ spec:
       namespace: networking
     - name: cert-manager
       namespace: cert-manager
+    - name: teslamate
+      namespace: home
   interval: 5m
   install:
     remediation:
