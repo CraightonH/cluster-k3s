@@ -19,7 +19,9 @@ spec:
     - name: traefik
       namespace: networking
     - name: cert-manager
-      namespace: cert-manager      
+      namespace: cert-manager
+    - name: longhorn
+      namespace: longhorn-system
   values:
     image:
       repository: plexinc/pms-docker
@@ -28,10 +30,11 @@ spec:
 
     env:
       TZ: "America/Denver"
-      # ALLOWED_NETWORKS: 192.168.1.0/255.255.255.0
-      # PLEX_CLAIM: ${SECRET_PLEX_CLAIM}
-      PLEX_PREFERENCE_1: "FriendlyName=HancockPlex"
-      PLEX_PREFERENCE_4: "DisableTLSv1_0=1"
+      ALLOWED_NETWORKS: 192.168.1.0/255.255.255.0
+      PLEX_CLAIM: ${SECRET_PLEX_CLAIM}
+      HOSTNAME: HancockPlex
+      # PLEX_PREFERENCE_1: "FriendlyName=HancockPlex"
+      # PLEX_PREFERENCE_4: "DisableTLSv1_0=1"
 
     hostNetwork: true
 
