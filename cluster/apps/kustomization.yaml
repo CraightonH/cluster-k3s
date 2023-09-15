@@ -6,7 +6,7 @@ resources:
   - default
   - system-upgrade
   - home
-  # - cattle-system
+  - cattle-system
   # - longhorn-system
   # - media
   # - games
