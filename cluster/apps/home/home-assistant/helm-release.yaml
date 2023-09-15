@@ -21,6 +21,8 @@ spec:
       namespace: networking
     - name: cert-manager
       namespace: cert-manager
+    - name: mosquitto
+      namespace: home      
   values:
     image:
       repository: ghcr.io/home-assistant/home-assistant
