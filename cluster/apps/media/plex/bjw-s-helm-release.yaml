@@ -1,0 +1,110 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: plex
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 2.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  dependsOn:
+    - name: traefik
+      namespace: networking
+    - name: cert-manager
+      namespace: cert-manager
+    # - name: longhorn
+    #   namespace: longhorn-system
+  values:
+    defaultPodOptions:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: plexinc/pms-docker
+              tag: 1.32.5.7516-8f4248874
+            env:
+              TZ: America/Denver
+              ALLOWED_NETWORKS: 192.168.1.0/255.255.255.0
+              HOSTNAME: HancockPlex
+          rclone:
+            enabled: true
+            image:
+              repository: rclone/rclone
+              tag: latest
+
+    ingress:
+      main:
+        enabled: true
+        annotations: 
+          kubernetes.io/ingress.class: traefik 
+          external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
+          external-dns/is-public: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          hajimari.io/appName: Plex
+          hajimari.io/enable: "true"
+          hajimari.io/icon: plex
+        hosts:
+          - host: plex.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - plex.${SECRET_DOMAIN}
+            secretName: plex-tls
+
+    persistence:
+      media:
+        enabled: true
+        type: nfs
+        server: ${NAS_ADDRESS}
+        path: /volume1/Media/plex
+        advancedMounts:
+          main:
+            main:
+              - path: /data
+                readOnly: false
+      source:
+        enabled: true
+        type: nfs
+        server: ${NAS_ADDRESS}
+        path: /volume2/plex_config
+        advancedMounts:
+          main:
+            rclone:
+              - path: /source
+                readOnly: false
+      copy:
+        enabled: true
+        type: emptyDir
+        size: 50Gi
+        advancedMounts:
+          main:
+            main:
+              - path: /config
+                readOnly: false
+            rclone:
+              - path: /copy
+                readOnly: false

@@ -1,0 +1,131 @@
+defaultPodOptions:
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/arch
+            operator: In
+            values:
+            - amd64
+
+controllers:
+  main:
+    initContainers:
+      loader:
+        enabled: true
+        image:
+          repository: alpine
+          tag: latest
+        command:
+          - cp
+        args: # copy from source to container
+          - --recursive
+          - /source
+          - /copy
+    containers:
+      main:
+        image:
+          repository: plexinc/pms-docker
+          tag: 1.32.5.7516-8f4248874
+        env:
+          TZ: America/Denver
+          ALLOWED_NETWORKS: 192.168.1.0/255.255.255.0
+          HOSTNAME: HancockPlex
+        probes:
+          liveness:
+            type: HTTP
+            path: /index
+          readiness:
+            type: HTTP
+            path: /index
+          startup:
+            type: HTTP
+            path: /index        
+      unloader:
+        enabled: true
+        image:
+          repository: alpine
+          tag: latest
+        lifecycle:
+          preStop:  # when pod is stopping
+            exec:
+              command: # copy from container back to source 
+                - cp
+                - --recursive
+                - /copy
+                - /source
+
+service:
+  main:
+    type: NodePort
+    ports:
+      http:
+        port: 32400
+        nodePort: 32400
+
+ingress:
+  main:
+    enabled: true
+    annotations: 
+      kubernetes.io/ingress.class: traefik 
+      external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
+      external-dns/is-public: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      hajimari.io/appName: Plex
+      hajimari.io/enable: "true"
+      hajimari.io/icon: plex
+    hosts:
+      - host: plex.${SECRET_DOMAIN}
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              name: main
+    tls:
+      - hosts:
+          - plex.${SECRET_DOMAIN}
+        secretName: plex-tls
+
+persistence:
+  media:
+    enabled: true
+    type: nfs
+    server: ${NAS_ADDRESS}
+    path: /volume1/Media/plex
+    advancedMounts:
+      main:
+        main:
+          - path: /data
+            readOnly: false
+  source:
+    enabled: true
+    type: nfs
+    server: ${NAS_ADDRESS}
+    path: /volume2/plex_config
+    advancedMounts:
+      main:
+        unloader:
+          - path: /source
+            readOnly: false
+        loader:
+          - path: /source
+            readOnly: false
+  copy:
+    enabled: true
+    type: emptyDir
+    size: 50Gi
+    advancedMounts:
+      main:
+        main:
+          - path: /config
+            readOnly: false
+        unloader:
+          - path: /copy
+            readOnly: false
+        loader:
+          - path: /copy
+            readOnly: false
