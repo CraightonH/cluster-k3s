@@ -8,6 +8,6 @@ resources:
   - home
   - cattle-system
   # - longhorn-system
-  # - media
+  - media
   # - games
   # - monitoring
