@@ -20,8 +20,8 @@ spec:
       namespace: networking
     - name: cert-manager
       namespace: cert-manager
-    # - name: longhorn
-    #   namespace: longhorn-system
+    - name: longhorn
+      namespace: longhorn-system
   values:
     defaultPodOptions:
       hostNetwork: true
@@ -37,41 +37,41 @@ spec:
                 - amd64
 
     controllers:
-      backup:
-        enabled: true
-        nameOverride: backup
-        type: cronjob
-        cronjob:
-          schedule: 0 */6 * * *
-          backoffLimit: 3
-        containers:
-          main:
-            enabled: true
-            image:
-              repository: eeacms/rsync
-              tag: latest
-            command:
-              - /bin/sh
-            args: # copy from container to nas
-              - -c
-              - "rsync -a /copy/. /nas/"
+      # backup:
+      #   enabled: false
+      #   nameOverride: backup
+      #   type: cronjob
+      #   cronjob:
+      #     schedule: 0 */6 * * *
+      #     backoffLimit: 3
+      #   containers:
+      #     main:
+      #       enabled: true
+      #       image:
+      #         repository: eeacms/rsync
+      #         tag: latest
+      #       command:
+      #         - /bin/sh
+      #       args: # copy from container to nas
+      #         - -c
+      #         - "rsync -a /copy/. /nas/"
       main:
-        initContainers:
-          loader:
-            enabled: true
-            image:
-              repository: eeacms/rsync
-              tag: latest
-            command:
-              - /bin/sh
-            args: # copy from nas to container
-              - -c
-              # - "cp -r -a /nas/. /copy/"
-              - "rsync -a /nas/. /copy/"
-              # - -r
-              # - -a
-              # - /nas/.
-              # - /copy/
+        # initContainers:
+        #   loader:
+        #     enabled: false
+        #     image:
+        #       repository: eeacms/rsync
+        #       tag: latest
+        #     command:
+        #       - /bin/sh
+        #     args: # copy from nas to container
+        #       - -c
+        #       # - "cp -r -a /nas/. /copy/"
+        #       - "rsync -a /nas/. /copy/"
+        #       # - -r
+        #       # - -a
+        #       # - /nas/.
+        #       # - /copy/
         containers:
           main:
             image:
@@ -154,37 +154,46 @@ spec:
             main:
               - path: /data
                 readOnly: false
-      nas:
-        enabled: true
-        type: nfs
-        server: ${NAS_ADDRESS}
-        path: /volume2/plex_config
+      config:
+        type: pvc
+        storageClass: longhorn
+        size: 20Gi
         advancedMounts:
-          backup:
-            main:
-              - path: /nas
-                readOnly: false
-          main:
-            loader:
-              - path: /nas
-                readOnly: false
-          # main:
-          #   main:
-          #     - path: /config
-          #       readOnly: false
-      copy:
-        enabled: false
-        type: emptyDir
-        size: 50Gi
-        advancedMounts:
-          backup:
-            main:
-              - path: /copy
-                readOnly: false
           main:
             main:
               - path: /config
                 readOnly: false
-            loader:
-              - path: /copy
-                readOnly: false
+      # nas:
+      #   enabled: true
+      #   type: nfs
+      #   server: ${NAS_ADDRESS}
+      #   path: /volume2/plex_config
+      #   advancedMounts:
+      #     backup:
+      #       main:
+      #         - path: /nas
+      #           readOnly: false
+      #     main:
+      #       loader:
+      #         - path: /nas
+      #           readOnly: false
+          # main:
+          #   main:
+          #     - path: /config
+          #       readOnly: false
+      # copy:
+      #   enabled: false
+      #   type: emptyDir
+      #   size: 50Gi
+      #   advancedMounts:
+      #     backup:
+      #       main:
+      #         - path: /copy
+      #           readOnly: false
+      #     main:
+      #       main:
+      #         - path: /config
+      #           readOnly: false
+      #       loader:
+      #         - path: /copy
+      #           readOnly: false
