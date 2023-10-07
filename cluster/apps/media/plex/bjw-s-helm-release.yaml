@@ -155,7 +155,7 @@ spec:
               - path: /data
                 readOnly: false
       config:
-        type: pvc
+        type: persistentVolumeClaim
         storageClass: longhorn
         size: 20Gi
         advancedMounts:
