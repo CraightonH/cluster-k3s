@@ -1,0 +1,104 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: bookworm
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          schedule: "*/2 * * * *"
+          concurrencyPolicy: Forbid
+          failedJobsHistoryLimit: 1
+          successfulJobsHistoryLimit: 1
+          suspend: false
+        containers:
+          main:
+            image:
+              repository: craighton/bookworm
+              tag: 2023.4.2-python
+
+    configMaps:
+      config:
+        data:
+          config.yml: |-
+            ---
+            input:
+              path: /app/watch
+              extension: .aax
+              cleanup: true
+            output:
+              path: /app/output
+              extension: .m4b
+              overwrite: false
+            ffmpeg:
+              run: true
+              path: ffmpeg
+              additional_args:
+                - -hide_banner
+                - -loglevel
+                - error
+                - -nostats
+                - -y
+            ffprobe:
+              path: ffprobe
+              additional_args:
+                - -show_entries 
+                - format_tags=title 
+                - -of 
+                - compact=p=0 
+                - -v 
+                - "0"
+            logging:
+              level: info
+              format: '%(asctime)s - %(levelname)s - [%(name)s] %(message)s'
+
+    persistence:
+      watch:
+        type: nfs
+        server: ${NAS_ADDRESS}
+        path: /volume12/pvc/bookworm-watch
+        advancedMounts:
+          main:
+            main:
+              - path: /app/watch
+                readOnly: false
+      plex:
+        type: nfs
+        server: ${NAS_ADDRESS}
+        path: /volume1/Media/plex
+        advancedMounts:
+          main:
+            main:
+              - path: /app/output
+                subPath: Audiobooks
+                readOnly: false
+      secret:
+        type: secret
+        name: bookworm-secrets
+        advancedMounts:
+          main:
+            main:
+              - path: /app/secrets
+                readOnly: true
+      config:
+        type: configMap
+        name: bookworm-config
+        advancedMounts:
+          main:
+            main:
+              - path: /app/secrets
+                readOnly: true

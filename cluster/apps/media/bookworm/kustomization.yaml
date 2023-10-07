@@ -2,7 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - secrets.yaml
-  - configmap.yaml
-  - storage.yaml
-  - cronjob.yaml
+  # - configmap.yaml
+  # - storage.yaml
+  # - cronjob.yaml
   # - helm-release.yaml
+  - bjw-s-helm-release.yaml
