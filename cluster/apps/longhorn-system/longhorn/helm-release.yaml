@@ -45,26 +45,26 @@ spec:
           tag: master-head
         supportBundleKit:
           repository: longhornio/support-bundle-kit
-          tag: v0.0.22
+          # tag: v0.0.22
       csi:
         attacher:
           repository: longhornio/csi-attacher
-          tag: v3.4.0
+          # tag: v3.4.0
         provisioner:
           repository: longhornio/csi-provisioner
-          tag: v2.1.2
+          # tag: v2.1.2
         nodeDriverRegistrar:
           repository: longhornio/csi-node-driver-registrar
-          tag: v2.5.0
+          # tag: v2.5.0
         resizer:
           repository: longhornio/csi-resizer
-          tag: v1.3.0
+          # tag: v1.3.0
         snapshotter:
           repository: longhornio/csi-snapshotter
-          tag: v5.0.1
+          # tag: v5.0.1
         livenessProbe:
           repository: longhornio/livenessprobe
-          tag: v2.8.0
+          # tag: v2.8.0
         
       pullPolicy: IfNotPresent
 
@@ -80,7 +80,7 @@ spec:
       snapshotterReplicaCount: 1
 
     defaultSettings:
-      backupTarget: nfs://192.168.1.20:/volume2/plex_config/backups
+      backupTarget: nfs://${NAS_ADDRESS}:/volume2/plex_config/backups
       defaultReplicaCount: 1
 
     ingress:
