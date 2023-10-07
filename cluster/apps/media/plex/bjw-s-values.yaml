@@ -17,19 +17,23 @@ controllers:
       loader:
         enabled: true
         image:
-          repository: alpine
+          repository: eeacms/rsync
           tag: latest
         command:
-          - cp
-        args: # copy from source to container
-          - --recursive
-          - /source
-          - /copy
+          - /bin/sh
+        args: # copy from nas to container
+          - -c
+          # - "cp -r -a /nas/. /copy/"
+          - "rsync -a /nas/. /copy/"
+          # - -r
+          # - -a
+          # - /nas/.
+          # - /copy/
     containers:
       main:
         image:
           repository: plexinc/pms-docker
-          tag: 1.32.5.7516-8f4248874
+          tag: 1.32.6.7557-1cf77d501
         env:
           TZ: America/Denver
           ALLOWED_NETWORKS: 192.168.1.0/255.255.255.0
@@ -37,26 +41,32 @@ controllers:
         probes:
           liveness:
             type: HTTP
-            path: /index
+            path: /web/index.html
           readiness:
             type: HTTP
-            path: /index
+            path: /web/index.html
           startup:
             type: HTTP
-            path: /index        
+            path: /web/index.html
       unloader:
         enabled: true
         image:
-          repository: alpine
+          repository: eeacms/rsync
           tag: latest
-        lifecycle:
-          preStop:  # when pod is stopping
-            exec:
-              command: # copy from container back to source 
-                - cp
-                - --recursive
-                - /copy
-                - /source
+        command:
+          - /bin/sh
+        args:
+          - -c
+          # - "while true; do sleep 60 && cp -r -a /copy/. /nas/ ; done;"
+          # - "trap : TERM INT; while true; do sleep 30 && cp -r -a /copy/. /nas/ ; done;"
+          - "trap : TERM INT; while true; do sleep 30 && rsync -a /copy/. /nas/ ; done;"
+        # lifecycle:
+        #   preStop:  # when pod is stopping
+        #     exec:
+        #       command: # copy from container back to nas 
+        #         - /bin/sh
+        #         - -c
+        #         - "cp -r -a /copy/. /nas/"
 
 service:
   main:
@@ -64,14 +74,15 @@ service:
     ports:
       http:
         port: 32400
-        nodePort: 32400
+        # nodePort: 32400
 
 ingress:
   main:
     enabled: true
     annotations: 
       kubernetes.io/ingress.class: traefik 
-      external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
+      # external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
+      external-dns.alpha.kubernetes.io/target: ipv4.hancockfam.net
       external-dns/is-public: "true"
       cert-manager.io/cluster-issuer: letsencrypt-production
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
@@ -79,7 +90,8 @@ ingress:
       hajimari.io/enable: "true"
       hajimari.io/icon: plex
     hosts:
-      - host: plex.${SECRET_DOMAIN}
+      # - host: plex.${SECRET_DOMAIN}
+      - host: plex.hancockfam.net
         paths:
           - path: /
             pathType: Prefix
@@ -87,32 +99,35 @@ ingress:
               name: main
     tls:
       - hosts:
-          - plex.${SECRET_DOMAIN}
+          # - plex.${SECRET_DOMAIN}
+          - plex.hancockfam.net
         secretName: plex-tls
 
 persistence:
   media:
     enabled: true
     type: nfs
-    server: ${NAS_ADDRESS}
+    # server: ${NAS_ADDRESS}
+    server: 192.168.1.20
     path: /volume1/Media/plex
     advancedMounts:
       main:
         main:
           - path: /data
             readOnly: false
-  source:
+  nas:
     enabled: true
     type: nfs
-    server: ${NAS_ADDRESS}
+    # server: ${NAS_ADDRESS}
+    server: 192.168.1.20
     path: /volume2/plex_config
     advancedMounts:
       main:
         unloader:
-          - path: /source
+          - path: /nas
             readOnly: false
         loader:
-          - path: /source
+          - path: /nas
             readOnly: false
   copy:
     enabled: true
