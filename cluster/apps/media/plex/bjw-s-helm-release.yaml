@@ -38,7 +38,7 @@ spec:
 
     controllers:
       backup:
-        enabled: false
+        enabled: true
         nameOverride: backup
         type: cronjob
         cronjob:
@@ -58,7 +58,7 @@ spec:
       main:
         initContainers:
           loader:
-            enabled: false
+            enabled: true
             image:
               repository: eeacms/rsync
               tag: latest
