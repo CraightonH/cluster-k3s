@@ -6,7 +6,7 @@ metadata:
   namespace: longhorn-system
 spec:
   interval: 5m
-  timeout: 30m
+  timeout: 10m
   chart:
     spec:
       # renovate: registryUrl=https://charts.longhorn.io
@@ -23,66 +23,18 @@ spec:
     - name: cert-manager
       namespace: cert-manager      
   values:
-    image:
-      longhorn:
-        engine:
-          repository: longhornio/longhorn-engine
-          # tag: master-head
-        manager:
-          repository: longhornio/longhorn-manager
-          # tag: master-head
-        ui:
-          repository: longhornio/longhorn-ui
-          # tag: master-head
-        instanceManager:
-          repository: longhornio/longhorn-instance-manager
-          # tag: master-head
-        shareManager:
-          repository: longhornio/longhorn-share-manager
-          # tag: master-head
-        backingImageManager:
-          repository: longhornio/backing-image-manager
-          # tag: master-head
-        supportBundleKit:
-          repository: longhornio/support-bundle-kit
-          # tag: v0.0.22
-      csi:
-        attacher:
-          repository: longhornio/csi-attacher
-          # tag: v3.4.0
-        provisioner:
-          repository: longhornio/csi-provisioner
-          # tag: v2.1.2
-        nodeDriverRegistrar:
-          repository: longhornio/csi-node-driver-registrar
-          # tag: v2.5.0
-        resizer:
-          repository: longhornio/csi-resizer
-          # tag: v1.3.0
-        snapshotter:
-          repository: longhornio/csi-snapshotter
-          # tag: v5.0.1
-        livenessProbe:
-          repository: longhornio/livenessprobe
-          # tag: v2.8.0
-        
-      pullPolicy: IfNotPresent
-
     persistence:
       defaultClass: false
       defaultClassReplicaCount: 1
       reclaimPolicy: Retain
-
     csi:
       attacherReplicaCount: 1
       provisionerReplicaCount: 1
       resizerReplicaCount: 1
       snapshotterReplicaCount: 1
-
     defaultSettings:
       backupTarget: nfs://${NAS_ADDRESS}:/volume2/plex_config/backups
       defaultReplicaCount: 1
-
     ingress:
       enabled: true
       annotations:
