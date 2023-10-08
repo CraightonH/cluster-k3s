@@ -27,22 +27,22 @@ spec:
       longhorn:
         engine:
           repository: longhornio/longhorn-engine
-          tag: master-head
+          # tag: master-head
         manager:
           repository: longhornio/longhorn-manager
-          tag: master-head
+          # tag: master-head
         ui:
           repository: longhornio/longhorn-ui
-          tag: master-head
+          # tag: master-head
         instanceManager:
           repository: longhornio/longhorn-instance-manager
-          tag: master-head
+          # tag: master-head
         shareManager:
           repository: longhornio/longhorn-share-manager
-          tag: master-head
+          # tag: master-head
         backingImageManager:
           repository: longhornio/backing-image-manager
-          tag: master-head
+          # tag: master-head
         supportBundleKit:
           repository: longhornio/support-bundle-kit
           # tag: v0.0.22
