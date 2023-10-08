@@ -1,3 +1,4 @@
+# Delete longhorn webhooks first
 kubectl patch engineimage ei-b907910b -n longhorn-system -p '{"metadata":{"finalizers":[]}}' --type=merge
 kubectl patch engine pvc-2dc57f0d-14c7-4958-a35d-c570e4dcbcd5-e-0 -n longhorn-system -p '{"metadata":{"finalizers":[]}}' --type=merge
 kubectl patch replicas pvc-2dc57f0d-14c7-4958-a35d-c570e4dcbcd5-r-2eb45d7c -n longhorn-system -p '{"metadata":{"finalizers":[]}}' --type=merge
