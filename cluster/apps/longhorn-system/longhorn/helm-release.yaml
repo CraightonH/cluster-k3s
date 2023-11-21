@@ -9,8 +9,9 @@ spec:
   timeout: 30m
   chart:
     spec:
+      # renovate: registryUrl=https://charts.longhorn.io
       chart: longhorn
-      version: 1.5.1
+      version: 1.5.3
       sourceRef:
         kind: HelmRepository
         name: longhorn-charts
