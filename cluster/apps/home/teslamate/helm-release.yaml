@@ -32,7 +32,7 @@ spec:
   values:
     image:
       repository: teslamate/teslamate
-      tag: 1.28.0
+      tag: 1.28.1
     ingress:
       main:
         enabled: true
