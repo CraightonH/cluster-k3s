@@ -50,6 +50,8 @@ spec:
         mountPath: /data
         existingClaim: frigate-config-pvc
       media:
+        # In case of db corruption, shutdown frigate, mount this volume to workstation and run following command
+        # echo '.dump' | sqlite3 frigate.db | sqlite3 repaired_frigate.db
         enabled: true
         mountPath: /media
         existingClaim: nvr-media-pvc
