@@ -1,10 +1,20 @@
 {
   "enabled": true,
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "docker:enableMajor",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":automergeBranch"
+  ],
   "semanticCommits": "enabled",
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
-  "suppressNotifications": ["prIgnoreNotification"],
+  "suppressNotifications": ["preEditedNotification", "prIgnoreNotification"],
   "rebaseWhen": "conflicted",
+  "schedule": ["on saturday"],
   "helm-values": {
     "fileMatch": [
       "cluster/.+/helm-release\\.yaml$"
