@@ -1,0 +1,77 @@
+image:
+  repository: ghcr.io/home-assistant/home-assistant
+  tag: 2024.5.5
+env: 
+  TZ: "America/Denver"
+hostNetwork: true
+dnsPolicy: ClusterFirstWithHostNet
+ingress:
+  main:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik 
+      external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+      external-dns/is-public: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt-production"
+      traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+      hajimari.io/appName: "HA"
+      hajimari.io/enable: "true"
+      hajimari.io/icon: "home-assistant"
+    hosts:
+      - host: "home.${SECRET_DOMAIN}"
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - "home.${SECRET_DOMAIN}"
+        secretName: "home-assistant-tls"
+persistence:
+  config:
+    enabled: true
+    existingClaim: "home-assistant-config-pvc"
+  media:
+    enabled: true
+    mountPath: /mnt/media/nvr
+    existingClaim: "nvr-media-pvc"
+
+addons:
+  codeserver:
+    enabled: true
+    image:
+      repository: codercom/code-server
+      tag: 4.90.2
+    env:
+      TZ: "America/Denver"
+    workingDir: "/config"
+    args:
+      - --user-data-dir
+      - "/config/.vscode"
+      - --auth
+      - "none"
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: traefik 
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+        external-dns/is-public: "true"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+      hosts:
+        - host: haconfig.${SECRET_DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+      tls:
+        - hosts:
+            - "haconfig.${SECRET_DOMAIN}"
+          secretName: "haconfig-tls"
+    volumeMounts:
+    - name: config
+      mountPath: /config
+resources:
+  requests:
+    cpu: 100m
+    memory: 100Mi
+  limits:
+    memory: 4000Mi    

@@ -1,0 +1,6 @@
+dependencies:
+- name: mosquitto
+  repository: https://k8s-at-home.com/charts
+  version: 4.8.2
+digest: sha256:d75363d69b1c8cfe72558ae535b3901bbbc4ecea7768c352d02c6a8527934ba8
+generated: "2024-07-02T20:26:16.5579699-06:00"

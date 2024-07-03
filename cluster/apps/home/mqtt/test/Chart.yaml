@@ -1,0 +1,9 @@
+apiVersion: v1
+name: mqtt
+description: just a local test of values
+version: 0.0.1
+type: application
+dependencies:
+  - name: mosquitto
+    version: 4.8.2
+    repository: https://k8s-at-home.com/charts

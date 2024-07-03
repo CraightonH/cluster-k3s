@@ -1,0 +1,6 @@
+dependencies:
+- name: teslamate
+  repository: https://k8s-at-home.com/charts
+  version: 7.1.2
+digest: sha256:3d70617f09540375fe19bfd52621d3e2b50617c411745252529e9be54751bcb4
+generated: "2024-07-02T21:58:02.7505926-06:00"

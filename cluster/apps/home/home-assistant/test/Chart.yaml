@@ -1,0 +1,9 @@
+apiVersion: v1
+name: home-assistant
+description: just a local test of values
+version: 0.0.1
+type: application
+dependencies:
+  - name: home-assistant
+    version: 13.4.2
+    repository: https://k8s-at-home.com/charts
